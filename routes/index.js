@@ -19,19 +19,18 @@ const log = bunyan.createLogger({
 	]
 });
 router.post('/', function (req, res) {
-	log.info({ query: req.query });
-	log.info({ body: req.body });
+	// log.info({ body: req.body });
 	log.info({ sender: req.body.sender });
 	log.info({ sender: req.body.sender.user_id });
 	const body = req.body;
 	log.info('type ', typeof body.sender);
 	if (
-		body['message_type'] === 'group' &&
-		body['sender'] &&
-		body['sender']['user_id'] != 1345832339
+		body.message_type === 'group' &&
+		body.sender &&
+		body.sender.user_id != 1345832339
 	) {
 		res.json({
-			reply: body['sebder']['nickname'] + '说：' + body['message'],
+			reply: body.sebder.nickname + '说：' + body.message,
 			auto_escape: false,
 			at_sender: false
 		});
@@ -40,6 +39,7 @@ router.post('/', function (req, res) {
 			reply: '其他'
 		});
 	}
+	res.status(200);
 	// next();
 });
 
