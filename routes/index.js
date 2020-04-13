@@ -25,7 +25,7 @@ router.post('/', function (req, res) {
 	log.info({ message_type: req.body.message_type });
 
 	try {
-		if (req.body.message_type === 'group') {
+		if (req.body.message_type === 'group' && req.body.message.length > 18) {
 			res.status(200).send({
 				reply:
 					(req.body.sender.card || req.body.sender.nickname) +
@@ -34,6 +34,8 @@ router.post('/', function (req, res) {
 				auto_escape: false,
 				at_sender: false
 			});
+		} else {
+			res.status(200);
 		}
 	} catch (error) {
 		log.warn(error);
