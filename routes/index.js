@@ -22,15 +22,16 @@ router.post('/', function (req, res) {
 	log.info({ query: req.query });
 	log.info({ body: req.body });
 	log.info({ sender: req.body['sender'] });
+	log.info({ sender: req.body['sender']['nickname'] });
 	const body = req.body;
-	const message_type = body['message_type'];
+	log.info('type ', typeof(body.sender));
 	if (
-		message_type === 'group' &&
+		body['message_type'] === 'group' &&
 		body['sender'] &&
 		body['sender']['user_id'] != 1345832339
 	) {
 		res.json({
-			reply: body['sebder']['card'] + '说：' + body['message'],
+			reply: body['sebder']['nickname'] + '说：' + body['message'],
 			auto_escape: false,
 			at_sender: false
 		});
