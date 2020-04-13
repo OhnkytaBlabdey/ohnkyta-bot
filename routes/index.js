@@ -35,7 +35,7 @@ router.post('/', function (req, res) {
 					auto_escape: false,
 					at_sender: false
 				});
-			} else if (/今日运势/.match(req.body.message)) {
+			} else if (RegExp(/今日运势/).test(req.body.message)) {
 				res.status(200).send({
 					auto_escape: false,
 					at_sender: false,
