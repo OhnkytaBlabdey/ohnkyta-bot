@@ -23,6 +23,7 @@
 	"homepage": "https://github.com/OhnkytaBlabdey/ohnkyta-bot#readme",
 	"private": true,
 	"dependencies": {
+		"bunyan": "^1.8.12",
 		"cookie-parser": "~1.4.4",
 		"cross-env": "^7.0.2",
 		"debug": "~2.6.9",
