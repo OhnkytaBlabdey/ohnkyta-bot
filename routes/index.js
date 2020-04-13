@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bunyan = require('bunyan');
 const log = bunyan.createLogger({
-	name: 'hook',
+	name: 'bot',
 	time: new Date().toString(),
 	streams: [
 		{
@@ -19,14 +19,18 @@ const log = bunyan.createLogger({
 	]
 });
 router.post('/', function (req, res, next) {
+	log.info(req.data);
 	const message_type = req.data.message_type;
 	log.info(req);
-	log.info(req.data);
 	if (message_type === 'group' && req.data.sender.user_id != 1345832339) {
 		res.json({
 			reply: req.data.sebder.card + '说：' + req.data.message,
 			auto_escape: false,
 			at_sender: false
+		});
+	} else {
+		res.json({
+			reply: '其他'
 		});
 	}
 	next();
