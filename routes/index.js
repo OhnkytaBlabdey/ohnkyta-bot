@@ -19,12 +19,12 @@ const log = bunyan.createLogger({
 	]
 });
 router.post('/', function (req, res, next) {
-	log.info(req.data);
-	const message_type = req.data.message_type;
-	log.info(req);
-	if (message_type === 'group' && req.data.sender.user_id != 1345832339) {
+	log.info(req.body);
+	const message_type = req.body.message_type;
+	// log.info(req);
+	if (message_type === 'group' && req.body.sender.user_id != 1345832339) {
 		res.json({
-			reply: req.data.sebder.card + '说：' + req.data.message,
+			reply: req.body.sebder.card + '说：' + req.body.message,
 			auto_escape: false,
 			at_sender: false
 		});
