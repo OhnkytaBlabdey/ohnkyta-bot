@@ -38,7 +38,7 @@ router.post('/', function (req, res) {
 			req.body.sender.user_id != 1345832339
 		) {
 			res.status(200).send({
-				reply: req.body.sebder.nickname + '说：' + req.body.message,
+				reply: req.body.sender.nickname + '说：' + req.body.message,
 				auto_escape: false,
 				at_sender: false
 			});
@@ -50,7 +50,7 @@ router.post('/', function (req, res) {
 		}
 	} catch (error) {
 		log.warn(error);
-		log.trace(error);
+		// log.trace(error);
 	}
 	// next();
 });
