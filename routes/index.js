@@ -18,7 +18,7 @@ const log = bunyan.createLogger({
 		}
 	]
 });
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
 	log.info({ query: req.query });
 	log.info({ body: req.body });
 	log.info({ sender: req.body['sender'] });
