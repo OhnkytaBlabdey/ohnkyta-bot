@@ -27,14 +27,15 @@ router.post('/', function (req, res) {
 	try {
 		if (req.body.message_type === 'group') {
 			if (req.body.message.length > 128) {
-				res.status(200).send({
-					reply:
-						(req.body.sender.card || req.body.sender.nickname) +
-						'说：' +
-						req.body.message,
-					auto_escape: false,
-					at_sender: false
-				});
+				res.status(200);
+				// .send({
+				// 	reply:
+				// 		(req.body.sender.card || req.body.sender.nickname) +
+				// 		'说：' +
+				// 		req.body.message,
+				// 	auto_escape: false,
+				// 	at_sender: false
+				// });
 			} else if (RegExp(/今日运势/).test(req.body.message)) {
 				res.status(200).send({
 					auto_escape: false,
