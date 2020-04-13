@@ -19,9 +19,9 @@ const log = bunyan.createLogger({
 	]
 });
 router.post('/', function (req, res, next) {
-	log.info(req.query);
-	log.info(req.body);
-	log.info(req.body['sender']);
+	log.info({ query: req.query });
+	log.info({ body: req.body });
+	log.info({ sender: req.body['sender'] });
 	const body = req.body;
 	const message_type = body['message_type'];
 	if (
