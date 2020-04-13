@@ -1,0 +1,33 @@
+{
+	"name": "ohnkyta-bot",
+	"version": "1.0.0",
+	"description": "练习用的bot",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"test\"",
+		"start": "node ./bin/ohnkyta-bot"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/OhnkytaBlabdey/ohnkyta-bot.git"
+	},
+	"keywords": [
+		"QQ",
+		"bot"
+	],
+	"author": "OhnkytaBlabdey",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/OhnkytaBlabdey/ohnkyta-bot/issues"
+	},
+	"homepage": "https://github.com/OhnkytaBlabdey/ohnkyta-bot#readme",
+	"private": true,
+	"dependencies": {
+		"cookie-parser": "~1.4.4",
+		"cross-env": "^7.0.2",
+		"debug": "~2.6.9",
+		"express": "~4.16.1",
+		"http-errors": "~1.6.3",
+		"morgan": "~1.9.1"
+	}
+}
