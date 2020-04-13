@@ -21,6 +21,7 @@ const log = bunyan.createLogger({
 
 router.post('/', function (req, res) {
 	// log.info({ body: req.body });
+	log.info({ message: req.body.message });
 	log.info({ sender: req.body.sender });
 	log.info({ user_id: req.body.sender.user_id });
 	log.info({ nickname: req.body.sender.nickname });
@@ -48,6 +49,7 @@ router.post('/', function (req, res) {
 			});
 		}
 	} catch (error) {
+		log.warn(error);
 		log.trace(error);
 	}
 	// next();
