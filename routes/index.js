@@ -26,11 +26,11 @@ router.post('/', function (req, res, next) {
 	const message_type = body['message_type'];
 	if (
 		message_type === 'group' &&
-		body.sender &&
-		body.sender.user_id != 1345832339
+		body['sender'] &&
+		body['sender']['user_id'] != 1345832339
 	) {
 		res.json({
-			reply: body.sebder.card + '说：' + body.message,
+			reply: body['sebder']['card'] + '说：' + body['message'],
 			auto_escape: false,
 			at_sender: false
 		});
@@ -39,7 +39,7 @@ router.post('/', function (req, res, next) {
 			reply: '其他'
 		});
 	}
-	next();
+	// next();
 });
 
 module.exports = router;
