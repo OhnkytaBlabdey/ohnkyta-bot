@@ -31,21 +31,24 @@ router.post('/', function (req, res) {
 	// 	reply: 'hi'
 	// });
 	// return;
-
-	if (
-		req.body.message_type == 'group' &&
-		req.body.sender.user_id != 1345832339
-	) {
-		res.status(200).send({
-			reply: req.body.sebder.nickname + '说：' + req.body.message,
-			auto_escape: false,
-			at_sender: false
-		});
-	} else {
-		res.statue(200).send({
-			reply: '其他',
-			at_sender: false
-		});
+	try {
+		if (
+			req.body.message_type == 'group' &&
+			req.body.sender.user_id != 1345832339
+		) {
+			res.status(200).send({
+				reply: req.body.sebder.nickname + '说：' + req.body.message,
+				auto_escape: false,
+				at_sender: false
+			});
+		} else {
+			res.statue(200).send({
+				reply: '其他',
+				at_sender: false
+			});
+		}
+	} catch (error) {
+		log.trace(error);
 	}
 	// next();
 });
