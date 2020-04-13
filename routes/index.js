@@ -20,6 +20,7 @@ const log = bunyan.createLogger({
 });
 router.post('/', function (req, res, next) {
 	const message_type = req.data.message_type;
+	log.info(req);
 	log.info(req.data);
 	if (message_type === 'group' && req.data.sender.user_id != 1345832339) {
 		res.json({
