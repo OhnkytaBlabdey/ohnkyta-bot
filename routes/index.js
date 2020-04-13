@@ -33,17 +33,16 @@ router.post('/', function (req, res) {
 	// return;
 
 	if (
-		req.body.message_type === 'group' &&
-		req.body.sender != null &&
+		req.body.message_type == 'group' &&
 		req.body.sender.user_id != 1345832339
 	) {
-		res.status(200).json({
+		res.status(200).send({
 			reply: req.body.sebder.nickname + '说：' + req.body.message,
 			auto_escape: false,
 			at_sender: false
 		});
 	} else {
-		res.statue(200).json({
+		res.statue(200).send({
 			reply: '其他',
 			at_sender: false
 		});
