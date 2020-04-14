@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"test\"",
-    "start": "node ./bin/ohnkyta-bot"
+    "start": "node_modules\\.bin\\cross-env NODE_ENV=production PORT=9961 node ./bin/ohnkyta-bot"
   },
   "repository": {
     "type": "git",
