@@ -46,7 +46,5 @@ MsgRec.init(attr, {
 	modelName: 'msg_rec'
 });
 log.info(attr);
-connection.sync({
-	force: true
-});
+connection.sync();
 module.exports = MsgRec;
