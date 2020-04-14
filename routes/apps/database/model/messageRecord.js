@@ -21,6 +21,22 @@ const attr = {
 			len: [1, 256],
 			notNull: true
 		}
+	},
+	group: {
+		allowNull: false,
+		comment: '群号',
+		type: Sequelize.STRING,
+		validate: {
+			notNull: true
+		}
+	},
+	user: {
+		allowNull: false,
+		comment: '用户',
+		type: Sequelize.STRING,
+		validate: {
+			notNull: true
+		}
 	}
 };
 
@@ -30,5 +46,5 @@ MsgRec.init(attr, {
 	modelName: 'msg_rec'
 });
 log.info(attr);
-// connection.sync();
+connection.sync();
 module.exports = MsgRec;
