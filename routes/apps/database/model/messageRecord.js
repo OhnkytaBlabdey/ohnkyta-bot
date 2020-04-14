@@ -18,7 +18,7 @@ const attr = {
 		comment: '消息的内容',
 		type: Sequelize.STRING,
 		validate: {
-			len: [1, 60],
+			len: [1, 256],
 			notNull: true
 		}
 	}

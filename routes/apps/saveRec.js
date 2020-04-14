@@ -5,7 +5,7 @@ require('sequelize');
 const MsgRec = require('./database/model/messageRecord');
 
 const handle = (timestamp, msg) => {
-	if (msg.length > 100) msg='图片消息';
+	if (msg.length > 256) msg='长消息';
 	MsgRec.create({
 		mtime: timestamp,
 		msg: msg
