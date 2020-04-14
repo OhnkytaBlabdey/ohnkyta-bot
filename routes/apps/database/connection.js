@@ -6,7 +6,8 @@ const connection = new Sequelize('botdb', null, null, {
 	dialect: 'sqlite',
 	storage: 'bot.db',
 	define: {
-		charset: 'utf8mb4'
+		charset: 'utf8mb4',
+		timestamps: false
 	},
 	host: '127.0.0.1',
 	isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.REPEATABLE_READ,
