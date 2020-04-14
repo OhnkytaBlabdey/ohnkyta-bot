@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bunyan = require('bunyan');
+const drawYunshi = require('./apps/yunshi');
 const log = bunyan.createLogger({
 	name: 'bot',
 	time: new Date().toString(),
@@ -37,13 +38,17 @@ router.post('/', function (req, res) {
 				// 	at_sender: false
 				// });
 			} else if (RegExp(/今日运势/).test(req.body.message)) {
+				const yunshi = drawYunshi();
 				res.status(200).send({
 					auto_escape: false,
 					at_sender: false,
 					reply:
 						(req.body.sender.card || req.body.sender.nickname) +
-						'今天的运势是' +
-						Math.floor(Math.random() * 100)
+						'今天的运势是——\n' +
+						'【' +
+						yunshi.yunshi +
+						'】！\n' +
+						yunshi.desc
 				});
 			}
 		} else {
