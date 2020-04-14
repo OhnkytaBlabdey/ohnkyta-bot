@@ -1,31 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const bunyan = require('bunyan');
 const drawYunshi = require('./apps/yunshi');
-const log = bunyan.createLogger({
-	name: 'bot',
-	time: new Date().toString(),
-	streams: [
-		{
-			level: 'info',
-			stream: process.stdout
-		},
-		{
-			level: 'info',
-			type: 'rotating-file',
-			path: './log/info/infos.log',
-			period: '6h',
-			count: 64
-		}
-	]
-});
+const log = require('./apps/logger');
+const saver = require('./apps/saveRec');
 
 router.post('/', function (req, res) {
 	log.info({ message: req.body.message });
 	log.info({ sender: req.body.sender });
-	log.info({ message_type: req.body.message_type });
 
 	try {
+		saver(req.body.time, req.body.message);
 		if (req.body.message_type === 'group') {
 			if (req.body.message.length > 128) {
 				res.status(200);
