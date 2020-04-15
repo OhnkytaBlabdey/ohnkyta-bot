@@ -7,7 +7,6 @@ const crypto = require('crypto');
 
 const handle = (timestamp, msg, groupid, userid) => {
 	if (!msg) msg = '';
-	if (msg.length > 256) msg = '长消息';
 	let sha256 = crypto.createHash('sha256');
 	sha256.update(groupid + '');
 	const group = sha256.digest('hex');

@@ -18,7 +18,6 @@ const attr = {
 		comment: '消息的内容',
 		type: Sequelize.STRING,
 		validate: {
-			len: [1, 256],
 			notNull: true
 		}
 	},
@@ -46,5 +45,5 @@ MsgRec.init(attr, {
 	modelName: 'msg_rec'
 });
 log.info(attr);
-// connection.sync({ force: true });
+connection.sync({ force: true });
 module.exports = MsgRec;
