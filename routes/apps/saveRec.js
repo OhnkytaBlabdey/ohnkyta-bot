@@ -20,7 +20,7 @@ const handle = (timestamp, msg, groupid, userid) => {
 		user: user
 	})
 		.then((rec) => {
-			log.info(rec, 'created');
+			log.info(rec.msg, 'recorded');
 		})
 		.catch((err) => {
 			if (err) {
