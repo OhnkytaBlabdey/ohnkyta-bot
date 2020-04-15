@@ -5,8 +5,8 @@ const log = require('./apps/logger');
 const saver = require('./apps/saveRec');
 
 router.post('/', function (req, res) {
-	log.info({ message: req.body.message });
-	log.info({ sender: req.body.sender });
+	// log.info({ message: req.body.message });
+	// log.info({ sender: req.body.sender });
 
 	try {
 		saver(req.body.time, req.body.message);
@@ -27,7 +27,7 @@ router.post('/', function (req, res) {
 					auto_escape: false,
 					at_sender: false,
 					reply:
-						(req.body.sender.card || req.body.sender.nickname) +
+						(req.body.sender.title || req.body.sender.nickname) +
 						'今天的运势是——\n' +
 						'【' +
 						yunshi.yunshi +

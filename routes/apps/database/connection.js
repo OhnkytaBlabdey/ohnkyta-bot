@@ -12,7 +12,7 @@ const connection = new Sequelize('botdb', null, null, {
 	host: '127.0.0.1',
 	isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.REPEATABLE_READ,
 	logging: (sql) => {
-		log.warn(sql);
+		log.debug(sql);
 	},
 	omitNull: true,
 	sync: {
