@@ -9,7 +9,7 @@ router.post('/', function (req, res) {
 	// log.info({ sender: req.body.sender });
 
 	try {
-		saver(req.body.time, req.body.message);
+		saver(req.body.time, req.body.message, req.body.group_id, req.body.user_id);
 		if (req.body.message_type === 'group') {
 			if (req.body.message.length > 128) {
 				res.status(200);
