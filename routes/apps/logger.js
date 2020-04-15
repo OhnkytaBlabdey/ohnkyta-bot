@@ -3,7 +3,6 @@
 const bunyan = require('bunyan');
 const logger = bunyan.createLogger({
 	name: 'bot',
-	time: new Date().toString(),
 	streams: [
 		{
 			level: 'info',
