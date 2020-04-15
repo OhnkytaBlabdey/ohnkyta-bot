@@ -13,8 +13,8 @@ const logger = bunyan.createLogger({
 			level: 'info',
 			type: 'rotating-file',
 			path: './log/info/infos.log',
-			period: '6h',
-			count: 64
+			period: '2h',
+			count: 5
 		}
 	]
 });
