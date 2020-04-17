@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const drawYunshi = require('./apps/yunshi');
+const drawMingyan = require('./apps/mingyan');
 const log = require('./apps/logger');
 const saver = require('./apps/saveRec');
 
 router.post('/', function (req, res) {
-	// log.info({ message: req.body.message });
-	// log.info({ sender: req.body.sender });
-
 	try {
 		saver(req.body.time, req.body.message, req.body.group_id, req.body.user_id);
 		if (req.body.message_type === 'group') {
@@ -33,6 +31,13 @@ router.post('/', function (req, res) {
 						yunshi.yunshi +
 						'】！\n' +
 						yunshi.desc
+				});
+			} else if ('/名言' == req.body.message) {
+				const mingyan = drawMingyan();
+				res.status(200).send({
+					auto_escape: false,
+					at_sender: false,
+					reply: '"' + mingyan.sentence + '"' + '\n\t————' + mingyan.author
 				});
 			}
 		} else {
