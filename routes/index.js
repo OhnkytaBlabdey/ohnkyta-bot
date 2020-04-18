@@ -37,7 +37,12 @@ router.post('/', function (req, res) {
 				res.status(200).send({
 					auto_escape: false,
 					at_sender: false,
-					reply: '"' + mingyan.sentence + '"' + '\n\t————' + mingyan.author
+					reply:
+						'"' +
+						mingyan.sentence +
+						'"' +
+						'\n\t————' +
+						(mingyan.author || '匿名')
 				});
 			}
 		} else {

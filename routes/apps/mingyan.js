@@ -6,16 +6,21 @@ const d = [
 		author: '鲁迅'
 	},
 	{
-		sentence: '見て見てパリさん？手コキですよ！',
-		author: '佚名'
+		sentence: '見て見てパリさん？手コキですよ！'
 	},
 	{
 		sentence: '打不过，就加入',
-		author: '匿名'
+		author: '佚名'
 	},
 	{
 		sentence: '游戏就到此为止了！',
 		author: '丰聪耳神子'
+	},
+	{
+		sentence: 'neeeeeee!'
+	},
+	{
+		sentence: 'mooooooo!'
 	}
 ];
 const handle = () => {
