@@ -11,7 +11,7 @@ let last = {};
  * @returns {string} status
  * @returns {string} desc
  */
-const handle = (user_id, card_name) => {
+const handle = async (user_id, card_name) => {
 	log.info('处理接龙');
 	if (!user_id || !card_name) {
 		return {
