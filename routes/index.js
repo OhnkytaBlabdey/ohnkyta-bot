@@ -55,6 +55,7 @@ router.post('/', function (req, res) {
 				(async () => {
 					const url = 'http://localhost:5700/send_group_msg';
 					const rep = await jielong(req.body.sender.user_id, card);
+					log.info('处理结果', rep);
 					if (rep.status === 'ok') {
 						axios.default.get(url, {
 							params: {
@@ -71,7 +72,6 @@ router.post('/', function (req, res) {
 						axios.default.get(url, {
 							params: {
 								access_token: config['auth'],
-
 								group_id: true,
 								message:
 									'【' + req.body.sender.nickname + '的接龙结束】 ' + rep.desc
