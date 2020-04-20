@@ -45,8 +45,9 @@ router.post('/', function (req, res) {
 						'\n\t————' +
 						(mingyan.author || '匿名')
 				});
-			} else if (RegExp(/^接龙 .*/).test(req.body.message)) {
+			} else if (RegExp(/^接龙\s/).test(req.body.message)) {
 				const card = req.body.message.replace('接龙 ', '');
+				log.info('接龙收到', { name: card });
 				(async () => {
 					const rep = jielong(req.body.sender.user_id, card);
 					if (rep.status === 'ok') {
