@@ -28,6 +28,7 @@ const handle = async (user_id, card_name) => {
 		.then((card) => {
 			// 验证输入存在性
 			if (card) {
+				log.info('found');
 				if (last[user_id] && last[user_id] != card.head) {
 					// 验证输入正确性
 					// try {
@@ -42,6 +43,7 @@ const handle = async (user_id, card_name) => {
 					// 	log.warn(error);
 					// 	return '内部错误3';
 					// }
+					log.info('failed');
 					return {
 						status: 'fail',
 						desc: '你输了，接龙结束'
@@ -55,6 +57,7 @@ const handle = async (user_id, card_name) => {
 					attributes: ['name', 'tail']
 				})
 					.then((cards) => {
+						log.info('reply');
 						if (cards && cards.length >= 1) {
 							let c = cards[Math.floor(Math.random() * cards.length)];
 							last[user_id] = c.tail;
@@ -63,6 +66,7 @@ const handle = async (user_id, card_name) => {
 								desc: c.name
 							};
 						} else {
+							log.info('win');
 							if (last[user_id]) {
 								return {
 									status: 'win',
@@ -86,6 +90,7 @@ const handle = async (user_id, card_name) => {
 						}
 					});
 			} else {
+				log.info('not exists');
 				return {
 					status: 'fail',
 					desc: '你输了，这个卡名不存在'
