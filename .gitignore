@@ -1,4 +1,5 @@
 *.db
+!cardname.db
 # Logs
 logs
 *.log

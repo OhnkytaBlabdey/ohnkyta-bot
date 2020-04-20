@@ -4,6 +4,7 @@ const drawYunshi = require('./apps/yunshi');
 const drawMingyan = require('./apps/mingyan');
 const log = require('./apps/logger');
 const saver = require('./apps/saveRec');
+const jielong = require('./apps/jielong');
 
 router.post('/', function (req, res) {
 	try {
@@ -44,6 +45,24 @@ router.post('/', function (req, res) {
 						'\n\t————' +
 						(mingyan.author || '匿名')
 				});
+			} else if (RegExp(/^接龙 .*/).test(req.body.message)) {
+				const card = req.body.message.replace('接龙 ', '');
+				(async () => {
+					const rep = jielong(req.body.sender.user_id, card);
+					if (rep.status === 'ok') {
+						res.status(200).send({
+							auto_escape: false,
+							at_sender: true,
+							reply: '【卡名接龙进行中】 ' + rep.desc
+						});
+					} else {
+						res.status(200).send({
+							auto_escape: false,
+							at_sender: true,
+							reply: '【卡名接龙结束】 ' + rep.desc
+						});
+					}
+				})();
 			}
 		} else {
 			res.status(200);

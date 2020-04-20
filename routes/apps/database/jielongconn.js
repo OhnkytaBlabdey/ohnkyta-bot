@@ -4,7 +4,7 @@ const log = require('../logger');
 
 const connection = new Sequelize('botdb', null, null, {
 	dialect: 'sqlite',
-	storage: 'bot.db',
+	storage: 'cardname.db',
 	define: {
 		charset: 'utf8mb4',
 		timestamps: false
