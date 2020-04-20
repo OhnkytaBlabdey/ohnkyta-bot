@@ -1,5 +1,5 @@
 const jielong = require('./routes/apps/jielong');
-async () => {
+(async () => {
 	const rep = await jielong(123, '龙子');
 	console.log('rep' + rep);
-};
+})();
