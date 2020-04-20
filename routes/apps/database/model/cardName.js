@@ -6,7 +6,8 @@ const connection = require('../jielongconn');
 const log = require('../../logger');
 const attr = {
 	id: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER,
+		primaryKey: true
 	},
 	name: {
 		type: Sequelize.STRING

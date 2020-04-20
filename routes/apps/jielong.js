@@ -56,10 +56,17 @@ const handle = (user_id, card_name) => {
 								desc: c.name
 							};
 						} else {
-							return {
-								status: 'win',
-								desc: '你赢了'
-							};
+							if (last[user_id]) {
+								return {
+									status: 'win',
+									desc: '你赢了'
+								};
+							} else {
+								return {
+									status: 'fail',
+									desc: '???'
+								};
+							}
 						}
 					})
 					.catch((err) => {
