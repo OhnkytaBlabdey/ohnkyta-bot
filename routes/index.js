@@ -54,7 +54,7 @@ router.post('/', function (req, res) {
 				const group_id = req.body.group_id;
 				(async () => {
 					const url = 'http://localhost:5700/send_group_msg';
-					const rep = jielong(req.body.sender.user_id, card);
+					const rep = await jielong(req.body.sender.user_id, card);
 					if (rep.status === 'ok') {
 						axios.default.get(url, {
 							params: {
