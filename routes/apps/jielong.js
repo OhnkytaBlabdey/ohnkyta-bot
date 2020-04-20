@@ -12,6 +12,12 @@ let last = {};
  * @returns {string} desc
  */
 const handle = (user_id, card_name) => {
+	if (!user_id || !card_name) {
+		return {
+			status: 'fail',
+			desc: '不完整'
+		};
+	}
 	Card.findOne({
 		where: {
 			name: card_name

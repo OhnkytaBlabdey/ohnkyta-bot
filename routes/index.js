@@ -5,6 +5,8 @@ const drawMingyan = require('./apps/mingyan');
 const log = require('./apps/logger');
 const saver = require('./apps/saveRec');
 const jielong = require('./apps/jielong');
+const axios = require('axios');
+const config = require('../config.json');
 
 router.post('/', function (req, res) {
 	try {
@@ -49,25 +51,31 @@ router.post('/', function (req, res) {
 				const card = req.body.message.replace('接龙 ', '');
 				log.info('接龙收到', { name: card });
 				res.status(200);
+				const group_id = req.body.group_id;
 				(async () => {
+					const url = 'http://localhost:5700/send_group_msg';
 					const rep = jielong(req.body.sender.user_id, card);
 					if (rep.status === 'ok') {
-						res.status(200).send({
-							at_sender: true,
-							reply:
-								'【' +
-								req.body.sender.nickname +
-								'的卡名接龙进行中】 ' +
-								rep.desc
+						axios.default.get(url, {
+							params: {
+								access_token: config['auth'],
+								group_id: group_id,
+								message:
+									'【' +
+									req.body.sender.nickname +
+									'的接龙进行中】 ' +
+									rep.desc
+							}
 						});
 					} else {
-						res.status(200).send({
-							at_sender: true,
-							reply:
-								'【' +
-								req.body.sender.nickname +
-								'的卡名接龙结束】 ' +
-								rep.desc
+						axios.default.get(url, {
+							params: {
+								access_token: config['auth'],
+
+								group_id: true,
+								message:
+									'【' + req.body.sender.nickname + '的接龙结束】 ' + rep.desc
+							}
 						});
 					}
 				})();

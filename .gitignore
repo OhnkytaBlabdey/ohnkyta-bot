@@ -1,5 +1,7 @@
 *.db
 !cardname.db
+
+config.json
 # Logs
 logs
 *.log
