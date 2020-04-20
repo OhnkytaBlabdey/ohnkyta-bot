@@ -48,19 +48,26 @@ router.post('/', function (req, res) {
 			} else if (RegExp(/^接龙\s/).test(req.body.message)) {
 				const card = req.body.message.replace('接龙 ', '');
 				log.info('接龙收到', { name: card });
+				res.status(200);
 				(async () => {
 					const rep = jielong(req.body.sender.user_id, card);
 					if (rep.status === 'ok') {
 						res.status(200).send({
-							auto_escape: false,
 							at_sender: true,
-							reply: '【卡名接龙进行中】 ' + rep.desc
+							reply:
+								'【' +
+								req.body.sender.nickname +
+								'的卡名接龙进行中】 ' +
+								rep.desc
 						});
 					} else {
 						res.status(200).send({
-							auto_escape: false,
 							at_sender: true,
-							reply: '【卡名接龙结束】 ' + rep.desc
+							reply:
+								'【' +
+								req.body.sender.nickname +
+								'的卡名接龙结束】 ' +
+								rep.desc
 						});
 					}
 				})();
