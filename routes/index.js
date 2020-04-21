@@ -72,7 +72,7 @@ router.post('/', function (req, res) {
 						axios.default.get(url, {
 							params: {
 								access_token: config['auth'],
-								group_id: true,
+								group_id: group_id,
 								message:
 									'【' + req.body.sender.nickname + '的接龙结束】 ' + rep.desc
 							}

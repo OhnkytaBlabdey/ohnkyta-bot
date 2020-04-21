@@ -46,6 +46,7 @@ const handle = async (user_id, card_name) => {
 						// 	return '内部错误3';
 						// }
 						log.info('failed');
+						last[user_id] = null;
 						x({
 							status: 'fail',
 							desc: '你输了，接龙结束'
@@ -72,6 +73,7 @@ const handle = async (user_id, card_name) => {
 							} else {
 								log.info('win');
 								if (last[user_id]) {
+									last[user_id] = null;
 									x({
 										status: 'win',
 										desc: '你赢了'
@@ -89,6 +91,7 @@ const handle = async (user_id, card_name) => {
 						.catch((err) => {
 							if (err) {
 								log.warn(err);
+								last[user_id] = null;
 								x({
 									status: 'error',
 									desc: '内部错误2'
@@ -98,6 +101,7 @@ const handle = async (user_id, card_name) => {
 						});
 				} else {
 					log.info('not exists');
+					last[user_id] = null;
 					x({
 						status: 'fail',
 						desc: '你输了，这个卡名不存在'
@@ -108,6 +112,7 @@ const handle = async (user_id, card_name) => {
 			.catch((err) => {
 				if (err) {
 					log.warn(err);
+					last[user_id] = null;
 					x({
 						status: 'error',
 						desc: '内部错误1'
