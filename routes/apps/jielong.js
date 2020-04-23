@@ -81,8 +81,8 @@ const handle = async (user_id, card_name) => {
 									return;
 								} else {
 									x({
-										status: 'fail',
-										desc: '???'
+										status: 'win',
+										desc: '你只用了一步就赢了'
 									});
 									return;
 								}

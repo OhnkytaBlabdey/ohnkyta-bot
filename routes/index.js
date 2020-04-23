@@ -10,7 +10,6 @@ const config = require('../config.json');
 
 router.post('/', function (req, res) {
 	try {
-		saver(req.body.time, req.body.message, req.body.group_id, req.body.user_id);
 		if (req.body.message_type === 'group') {
 			if (req.body.message.length > 128) {
 				res.status(200);
@@ -81,6 +80,7 @@ router.post('/', function (req, res) {
 				})();
 			}
 		} else {
+			saver(req.body.time, req.body.message, req.body.group_id, req.body.user_id);
 			res.status(200);
 		}
 	} catch (error) {
