@@ -80,8 +80,13 @@ router.post('/', function (req, res) {
 				})();
 			}
 		} else {
-			saver(req.body.time, req.body.message, req.body.group_id, req.body.user_id);
 			res.status(200);
+			saver(
+				req.body.time,
+				req.body.message,
+				req.body.group_id,
+				req.body.user_id
+			);
 		}
 	} catch (error) {
 		log.warn(error);
