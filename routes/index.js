@@ -12,7 +12,7 @@ router.post('/', function (req, res) {
 	try {
 		if (req.body.message_type === 'group') {
 			if (req.body.message.length > 128) {
-				res.status(200);
+				res.status(204);
 				// .send({
 				// 	reply:
 				// 		(req.body.sender.card || req.body.sender.nickname) +
@@ -23,7 +23,7 @@ router.post('/', function (req, res) {
 				// });
 			} else if (RegExp(/今日运势/).test(req.body.message)) {
 				const yunshi = drawYunshi();
-				res.status(200).send({
+				res.send({
 					auto_escape: false,
 					at_sender: false,
 					reply:
@@ -36,7 +36,7 @@ router.post('/', function (req, res) {
 				});
 			} else if ('/名言' == req.body.message) {
 				const mingyan = drawMingyan();
-				res.status(200).send({
+				res.send({
 					auto_escape: false,
 					at_sender: false,
 					reply:
@@ -49,7 +49,7 @@ router.post('/', function (req, res) {
 			} else if (RegExp(/^接龙\s/).test(req.body.message)) {
 				const card = req.body.message.replace('接龙 ', '');
 				log.info('接龙收到', { name: card });
-				res.status(200);
+				res.status(204);
 				const group_id = req.body.group_id;
 				(async () => {
 					const url = 'http://localhost:5700/send_group_msg';
@@ -80,7 +80,7 @@ router.post('/', function (req, res) {
 				})();
 			}
 		} else {
-			res.status(200);
+			res.status(204);
 			saver(
 				req.body.time,
 				req.body.message,
