@@ -78,15 +78,19 @@ router.post('/', function (req, res) {
 						});
 					}
 				})();
+			} else {
+				res.status(204);
+				saver(
+					req.body.time,
+					req.body.message,
+					req.body.group_id,
+					req.body.user_id
+				);
 			}
 		} else {
 			res.status(204);
-			saver(
-				req.body.time,
-				req.body.message,
-				req.body.group_id,
-				req.body.user_id
-			);
+			log.info('收到私聊');
+			saver(req.body.time, req.body.message, 0, req.body.user_id);
 		}
 	} catch (error) {
 		log.warn(error);

@@ -6,7 +6,10 @@ const MsgRec = require('./database/model/messageRecord');
 const crypto = require('crypto');
 
 const handle = (timestamp, msg, groupid, userid) => {
-	if (!msg) msg = '';
+	if (!msg) {
+		log.warn('空的消息');
+		return;
+	}
 	let sha256 = crypto.createHash('sha256');
 	sha256.update(groupid + '');
 	const group = sha256.digest('hex');
