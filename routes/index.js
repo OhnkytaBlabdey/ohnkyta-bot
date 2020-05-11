@@ -13,6 +13,7 @@ router.post('/', function (req, res) {
 		if (req.body.message_type === 'group') {
 			if (req.body.message.length > 128) {
 				res.status(204);
+				res.end();
 				// .send({
 				// 	reply:
 				// 		(req.body.sender.card || req.body.sender.nickname) +
@@ -50,6 +51,7 @@ router.post('/', function (req, res) {
 				const card = req.body.message.replace('接龙 ', '');
 				log.info('接龙收到', { name: card });
 				res.status(204);
+				res.end();
 				const group_id = req.body.group_id;
 				(async () => {
 					const url = 'http://localhost:5700/send_group_msg';
@@ -80,6 +82,7 @@ router.post('/', function (req, res) {
 				})();
 			} else {
 				res.status(204);
+				res.end();
 				saver(
 					req.body.time,
 					req.body.message,
@@ -89,6 +92,7 @@ router.post('/', function (req, res) {
 			}
 		} else {
 			res.status(204);
+			res.end();
 			log.info('收到私聊');
 			saver(req.body.time, req.body.message, 0, req.body.user_id);
 		}
