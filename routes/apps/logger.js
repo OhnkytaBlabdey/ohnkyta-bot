@@ -1,6 +1,7 @@
 'use-strict';
 
 const bunyan = require('bunyan');
+const path = require('path');
 const logger = bunyan.createLogger({
 	name: 'bot',
 	streams: [
@@ -11,7 +12,7 @@ const logger = bunyan.createLogger({
 		{
 			level: 'info',
 			type: 'rotating-file',
-			path: './log/info/infos.log',
+			path: path.normalize(__dirname + '/../..') + '/log/info/infos.log',
 			period: '2h',
 			count: 5
 		}

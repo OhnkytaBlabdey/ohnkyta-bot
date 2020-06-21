@@ -5,6 +5,7 @@ const drawMingyan = require('./apps/mingyan');
 const log = require('./apps/logger');
 const saver = require('./apps/saveRec');
 const jielong = require('./apps/jielong');
+const drawSpell = require('./apps/spellCard');
 const axios = require('axios');
 const config = require('../config.json');
 
@@ -22,7 +23,22 @@ router.post('/', function (req, res) {
 				// 	auto_escape: false,
 				// 	at_sender: false
 				// });
+			} else if (RegExp(/随机符卡/).test(req.body.message)) {
+				const spell = drawSpell();
+				res.send({
+					auto_escape: false,
+					at_sender: true,
+					reply:
+						req.body.sender.nickname +
+						'抽到的符卡是——\n【' +
+						spell.game +
+						'】中' +
+						spell.character +
+						'使用的' +
+						spell.name
+				});
 			} else if (RegExp(/今日运势/).test(req.body.message)) {
+				//TODO 支持分时间段和分用户
 				const yunshi = drawYunshi();
 				res.send({
 					auto_escape: false,
