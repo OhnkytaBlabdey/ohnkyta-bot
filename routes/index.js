@@ -29,12 +29,12 @@ router.post('/', function (req, res) {
 					auto_escape: false,
 					at_sender: true,
 					reply:
-						req.body.sender.nickname +
+						// req.body.sender.nickname +
 						'抽到的符卡是——\n【' +
 						spell.game +
-						'】中' +
+						'】中【' +
 						spell.character +
-						'使用的' +
+						'】用的' +
 						spell.name
 				});
 			} else if (RegExp(/今日运势/).test(req.body.message)) {
