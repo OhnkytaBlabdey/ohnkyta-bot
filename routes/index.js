@@ -23,7 +23,7 @@ router.post('/', function (req, res) {
 				// 	auto_escape: false,
 				// 	at_sender: false
 				// });
-			} else if (RegExp(/随机符卡/).test(req.body.message)) {
+			} else if ('随机符卡' === req.body.message) {
 				const spell = drawSpell();
 				res.send({
 					auto_escape: false,
@@ -34,10 +34,10 @@ router.post('/', function (req, res) {
 						spell.game +
 						'】中【' +
 						spell.character +
-						'】用的' +
+						'】用的\n ' +
 						spell.name
 				});
-			} else if (RegExp(/今日运势/).test(req.body.message)) {
+			} else if ('今日运势' === req.body.message) {
 				//TODO 支持分时间段和分用户
 				const yunshi = drawYunshi();
 				res.send({

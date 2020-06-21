@@ -2,9 +2,15 @@
 const Axios = require('axios');
 const log = require('./logger');
 const cheerio = require('cheerio');
-let spellCardData = [];
+const random = require('random');
+let spellCardData = [
+	{
+		game: '请稍候',
+		character: '请稍候',
+		name: '请稍候'
+	}
+];
 const spellUrl = 'https://thwiki.cc/%E7%AC%A6%E5%8D%A1%E5%88%97%E8%A1%A8';
-// const spellUrl = 'https://thwiki.cc/%E4%B8%9C%E6%96%B9%E6%B0%B8%E5%A4%9C%E6%8A%84';
 
 let htmlContent = null;
 (async () => {
@@ -44,10 +50,11 @@ let htmlContent = null;
 		}
 		log.info(game + 'end');
 	});
+	spellCardData.shift();
 })();
 
 const drawSpell = () => {
-	return spellCardData[Math.floor(Math.random() * spellCardData.length)];
+	return spellCardData[random.int(0, spellCardData.length - 1)];
 };
 
 module.exports = drawSpell;
