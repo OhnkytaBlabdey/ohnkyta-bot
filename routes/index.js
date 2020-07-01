@@ -37,6 +37,15 @@ router.post('/', function (req, res) {
 						'】用的\n ' +
 						spell.name
 				});
+			} else if (
+				'歪比歪比' === req.body.message &&
+				req.body.user_id == 1263189143
+			) {
+				res.send({
+					auto_escape: true,
+					at_sender: false,
+					reply: 'HTTP API功能正常[CQ:face,id=178]'
+				});
 			} else if ('今日运势' === req.body.message) {
 				//TODO 支持分时间段和分用户
 				const yunshi = drawYunshi();
