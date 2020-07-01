@@ -44,7 +44,7 @@ router.post('/', function (req, res) {
 				res.send({
 					auto_escape: true,
 					at_sender: false,
-					reply: 'HTTP API功能正常[CQ:face,id=178]'
+					reply: 'HTTP API功能正常[CQ:face,id=179][CQ:face,id=200][CQ:face,id=14][CQ:face,id=170]'
 				});
 			} else if ('今日运势' === req.body.message) {
 				//TODO 支持分时间段和分用户
