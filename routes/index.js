@@ -134,8 +134,8 @@ router.post('/frps', function (req, res) {
 		axios.default.get(url, {
 			params: {
 				access_token: config['auth'],
-				group_id: 543298308,
-				message: '【' + req.body.content.proxy_name + '】 已登录'
+				group_id: 905253381,
+				message: '【' + req.body.content.proxy_name + '】 的连接已建立'
 			}
 		});
 		res.status(200).send({
