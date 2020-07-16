@@ -127,6 +127,7 @@ router.post('/', function (req, res) {
 });
 
 router.post('/frps', function (req, res) {
+	log.info('处理frps请求');
 	if (req.body && req.body.content && req.body.content.proxy_name) {
 		// 发送通知
 		const url = 'http://localhost:5700/send_group_msg';
