@@ -126,15 +126,15 @@ router.post('/', function (req, res) {
 	}
 });
 
-router.post('/frps/', function (req, res) {
-	if (req.body && req.body.content && req.body.content.run_id) {
+router.post('/frps', function (req, res) {
+	if (req.body && req.body.content && req.body.content.proxy_name) {
 		// 发送通知
 		const url = 'http://localhost:5700/send_group_msg';
 		axios.default.get(url, {
 			params: {
 				access_token: config['auth'],
 				group_id: 543298308,
-				message: '【' + req.body.content.run_id + '】 已登录'
+				message: '【' + req.body.content.proxy_name + '】 已登录'
 			}
 		});
 		res.status(200).send({
