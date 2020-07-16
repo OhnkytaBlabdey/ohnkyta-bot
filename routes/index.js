@@ -6,6 +6,7 @@ const log = require('./apps/logger');
 const saver = require('./apps/saveRec');
 const jielong = require('./apps/jielong');
 const drawSpell = require('./apps/spellCard');
+const MCNotice = require('./app/mcnotice');
 const axios = require('axios');
 const config = require('../config.json');
 
@@ -124,6 +125,26 @@ router.post('/', function (req, res) {
 	} catch (error) {
 		log.warn(error);
 	}
+});
+
+router.post('/frps', function (req, res) {
+	if (req.body && req.body.content && req.body.content.run_id) {
+		// 发送通知
+		const url = 'http://localhost:5700/send_group_msg';
+		axios.default.get(url, {
+			params: {
+				access_token: config['auth'],
+				group_id: 543298308,
+				message: '【' + req.body.content.run_id + '】 已登录'
+			}
+		});
+		res.status(200).send({
+			reject: false,
+			unchange: true
+		});
+		res.end();
+	}
+	log.info(req.body);
 });
 
 module.exports = router;
