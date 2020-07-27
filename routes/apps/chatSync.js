@@ -4,7 +4,7 @@ const axios = require('axios');
 const sha256 = require('crypto-js/sha256');
 const config = require('../../config.json');
 const handle = (title, card, msg) => {
-	const url = 'http:/cn-zz-/bgp.sakurafrp.com:10240';
+	const url = 'http://cn-zz-bgp.sakurafrp.com:10240';
 	const dat = ((title && '【' + title + '】') || '') + card + '：' + msg;
 	const timestamp = new Date().valueOf();
 	const hash = sha256(dat + timestamp + config['salt']).toString();
