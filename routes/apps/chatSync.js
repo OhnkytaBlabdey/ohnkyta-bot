@@ -1,5 +1,5 @@
 'use-strict';
-const log = require('../logger');
+const log = require('./logger');
 const axios = require('axios');
 const sha256 = require('crypto-js/sha256');
 const handle = (title, card, msg) => {
