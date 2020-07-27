@@ -30,6 +30,7 @@
     "cookie-parser": "~1.4.4",
     "cross-env": "^7.0.2",
     "crypto": "^1.0.1",
+    "crypto-js": "^4.0.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",

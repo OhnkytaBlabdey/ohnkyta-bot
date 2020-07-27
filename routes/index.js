@@ -6,6 +6,7 @@ const log = require('./apps/logger');
 const saver = require('./apps/saveRec');
 const jielong = require('./apps/jielong');
 const drawSpell = require('./apps/spellCard');
+const charSync = require('./apps/chatSync');
 const axios = require('axios');
 const config = require('../config.json');
 
@@ -119,6 +120,12 @@ router.post('/', function (req, res) {
 			res.end();
 			log.info('收到私聊');
 			saver(req.body.time, req.body.message, 0, req.body.user_id);
+			if (req.body.group_id == 905253381) {
+				const title = req.body.sender.title;
+				const card = req.body.sender.card;
+				const message = req.body.message;
+				charSync(title, card, message);
+			}
 		}
 	} catch (error) {
 		log.warn(error);
