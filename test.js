@@ -1,4 +1,4 @@
-const jielong = require('./routes/apps/jielong');
+// const jielong = require('./routes/apps/jielong');
 // const jielong = async (id, name) => {
 // 	return new Promise((x) => {
 // 		setTimeout(() => {
@@ -9,8 +9,10 @@ const jielong = require('./routes/apps/jielong');
 // 	});
 // };
 
-(async () => {
-	const rep = await jielong(123, '龙子');
-	console.log('rep : ' + (rep.status));
-	console.log('rep : ' + JSON.stringify(rep));
-})();
+// (async () => {
+// 	const rep = await jielong(123, '龙子');
+// 	console.log('rep : ' + (rep.status));
+// 	console.log('rep : ' + JSON.stringify(rep));
+// })();
+const chat = require('./routes/apps/chatSync');
+chat('a', 'b', 'c');
