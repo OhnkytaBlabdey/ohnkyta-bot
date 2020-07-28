@@ -17,13 +17,15 @@ const handle = (title, card, msg) => {
 				type: 'msg'
 			})
 		);
-	}else{
-		tcpHandler.getConnAndSend(JSON.stringify({
-			msg: dat,
-			time: timestamp,
-			token: hash,
-			type: 'msg'
-		}));
+	} else {
+		tcpHandler.getConnAndSend(
+			JSON.stringify({
+				msg: dat,
+				time: timestamp,
+				token: hash,
+				type: 'msg'
+			})
+		);
 	}
 };
 module.exports = handle;

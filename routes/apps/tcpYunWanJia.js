@@ -15,7 +15,7 @@ const tcp_client = net.Socket();
 // 接收数据
 tcp_client.on('data', function (data) {
 	log.info('received data: %s from server', data.toString());
-	tcp_client.conn = true;
+	handler.conn = true;
 });
 
 tcp_client.on('end', function () {
