@@ -25,6 +25,7 @@ handler.getConnAndSend = (str) => {
 	});
 	handler.tcp_client.on('end', function () {
 		log.info('data end!');
+		handler.conn = false;
 	});
 	handler.tcp_client.on('error', function (e) {
 		if (e.errno === 'ETIMEDOUT') return;
