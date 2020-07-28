@@ -1,6 +1,8 @@
 'use-strict';
 const net = require('net');
 const log = require('./logger');
+const config = require('../../config.json');
+const axios = require('axios');
 
 let handler = {};
 handler.conn = false;
@@ -26,6 +28,14 @@ handler.getConnAndSend = (str) => {
 	handler.tcp_client.on('end', function () {
 		log.info('data end!');
 		handler.conn = false;
+		const url = 'http://localhost:5700/send_group_msg';
+		axios.default.get(url, {
+			params: {
+				access_token: config['auth'],
+				group_id: 905253381,
+				message: '连接已关闭'
+			}
+		});
 	});
 	handler.tcp_client.on('error', function (e) {
 		if (e.errno === 'ETIMEDOUT') return;
