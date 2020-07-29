@@ -27,15 +27,17 @@ handler.getConnAndSend = (str) => {
 	});
 	handler.tcp_client.on('end', function () {
 		log.info('data end!');
+		if (handler.conn) {
+			const url = 'http://localhost:5700/send_group_msg';
+			axios.default.get(url, {
+				params: {
+					access_token: config['auth'],
+					group_id: 905253381,
+					message: '连接已关闭'
+				}
+			});
+		}
 		handler.conn = false;
-		const url = 'http://localhost:5700/send_group_msg';
-		axios.default.get(url, {
-			params: {
-				access_token: config['auth'],
-				group_id: 905253381,
-				message: '连接已关闭'
-			}
-		});
 	});
 	handler.tcp_client.on('error', function (e) {
 		if (e.errno === 'ETIMEDOUT') return;
