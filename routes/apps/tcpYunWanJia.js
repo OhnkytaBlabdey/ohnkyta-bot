@@ -40,8 +40,11 @@ handler.getConnAndSend = (str) => {
 		handler.conn = false;
 	});
 	handler.tcp_client.on('error', function (e) {
-		if (e.errno === 'ETIMEDOUT') return;
-		log.warn('tcp_client error!', e);
+		if (e.errno !== 'ETIMEDOUT') {
+			log.warn('tcp_client error!', e);
+		}
+		handler.tcp_client.end();
+		handler.conn = false;
 	});
 	// 连接 tcp server
 	// 会有连接超时错误
