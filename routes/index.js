@@ -116,7 +116,7 @@ router.post('/', function (req, res) {
 				);
 				if (req.body.group_id == 905253381) {
 					const title = req.body.sender.title;
-					const card = req.body.sender.card;
+					const card = req.body.sender.card || req.body.sender.nickname;
 					const message = req.body.message;
 					chatSync(title, card, message);
 				}
