@@ -14,7 +14,7 @@ const isOnLive = async (id) => {
 						const data = json.data;
 						log.info(data);
 						if (data && data.live_status != undefined) {
-							log.info('直播状态获取结果' + data.live_status);
+							log.info(id+'直播状态获取结果' + data.live_status);
 							Status(data.live_status == 1);
 						}
 					})();
@@ -101,7 +101,7 @@ monitor.addSub = (id, name, group_id) => {
 				});
 			subs[0].mentioned = false;
 		}
-	}, 6000);
+	}, 60000);
 	log.info('反馈订阅执行情况');
 	axios.default
 		.get(url, {
