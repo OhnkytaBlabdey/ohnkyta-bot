@@ -14,7 +14,7 @@ const isOnLive = async (id) => {
 						const data = json.data;
 						log.info(data);
 						if (data && data.live_status != undefined) {
-							log.info(id+'直播状态获取结果' + data.live_status);
+							log.info(id + '直播状态获取结果' + data.live_status);
 							Status(data.live_status == 1);
 						}
 					})();
@@ -40,16 +40,16 @@ monitor.addSub = (id, name, group_id) => {
 	) {
 		log.info('已经添加过了');
 		axios.default
-		.get(url, {
-			params: {
-				access_token: config['auth'],
-				group_id: group_id,
-				message: '【' + id + '】 的直播已经订阅过了'
-			}
-		})
-		.catch((err) => {
-			if (err) log.warn(err);
-		});
+			.get(url, {
+				params: {
+					access_token: config['auth'],
+					group_id: group_id,
+					message: '【' + id + '】 的直播已经订阅过了'
+				}
+			})
+			.catch((err) => {
+				if (err) log.warn(err);
+			});
 		return false;
 	}
 	subscribes.push({
@@ -58,7 +58,7 @@ monitor.addSub = (id, name, group_id) => {
 		gid: group_id,
 		mentioned: false
 	});
-	
+
 	setInterval(async () => {
 		let subs = subscribes.filter((e) => {
 			return e.lid == id && e.gid == group_id;
@@ -78,7 +78,10 @@ monitor.addSub = (id, name, group_id) => {
 					params: {
 						access_token: config['auth'],
 						group_id: group_id,
-						message: '【' + name + '】 的直播开始了'
+						message:
+							'【' + name +'】 的直播开始了\n' +
+							'直播间：' +
+							'https://live.bilibili.com/' + id
 					}
 				})
 				.catch((err) => {
