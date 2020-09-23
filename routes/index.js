@@ -76,7 +76,7 @@ router.post('/', function (req, res) {
 			} else if (RegExp(/^直播订阅\s\d+\s\S+/).test(req.body.message)) {
 				res.status(204);
 				const group_id = req.body.group_id;
-				const params = req.body.message.split(RegExp(/\s/, 3));
+				const params = req.body.message.split(RegExp(/\s/), 3);
 				const id = params[1];
 				const name = params[2];
 				liveMonitor.addSub(id, name, group_id);

@@ -32,12 +32,24 @@ const isOnLive = async (id) => {
 
 let monitor = {};
 monitor.addSub = (id, name, group_id) => {
+	const url = 'http://localhost:5700/send_group_msg';
 	if (
 		subscribes.filter((e) => {
 			return e.lid == id && e.gid == group_id;
 		}).length > 0
 	) {
 		log.info('已经添加过了');
+		axios.default
+		.get(url, {
+			params: {
+				access_token: config['auth'],
+				group_id: group_id,
+				message: '【' + id + '】 的直播已经订阅过了'
+			}
+		})
+		.catch((err) => {
+			if (err) log.warn(err);
+		});
 		return false;
 	}
 	subscribes.push({
@@ -46,7 +58,7 @@ monitor.addSub = (id, name, group_id) => {
 		gid: group_id,
 		mentioned: false
 	});
-	const url = 'http://localhost:5700/send_group_msg';
+	
 	setInterval(async () => {
 		let subs = subscribes.filter((e) => {
 			return e.lid == id && e.gid == group_id;
