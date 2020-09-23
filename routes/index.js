@@ -7,6 +7,7 @@ const saver = require('./apps/saveRec');
 const jielong = require('./apps/jielong');
 const drawSpell = require('./apps/spellCard');
 const chatSync = require('./apps/chatSync');
+const liveMonitor = require('./apps/liveMonitor');
 const axios = require('axios');
 const config = require('../config.json');
 
@@ -72,6 +73,13 @@ router.post('/', function (req, res) {
 						'\n\t————' +
 						(mingyan.author || '匿名')
 				});
+			} else if (RegExp(/^直播订阅\s\d+\s\S+/).test(req.body.message)) {
+				res.status(204);
+				const group_id = req.body.group_id;
+				const params = req.body.message.split(RegExp(/\s/, 3));
+				const id = params[1];
+				const name = params[2];
+				liveMonitor.addSub(id, name, group_id);
 			} else if (RegExp(/^接龙\s/).test(req.body.message)) {
 				const card = req.body.message.replace('接龙 ', '');
 				log.info('接龙收到', { name: card });
