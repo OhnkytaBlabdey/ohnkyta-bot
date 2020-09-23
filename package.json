@@ -1,45 +1,46 @@
 {
-  "name": "ohnkyta-bot",
-  "version": "1.0.0",
-  "description": "练习用的bot",
-  "main": "index.js",
-  "scripts": {
-    "test": "node test.js",
-    "start": "node_modules\\.bin\\cross-env NODE_ENV=production PORT=9961 TZ='Asia/Shanghai' node ./bin/ohnkyta-bot"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/OhnkytaBlabdey/ohnkyta-bot.git"
-  },
-  "keywords": [
-    "QQ",
-    "bot"
-  ],
-  "author": "OhnkytaBlabdey",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/OhnkytaBlabdey/ohnkyta-bot/issues"
-  },
-  "homepage": "https://github.com/OhnkytaBlabdey/ohnkyta-bot#readme",
-  "private": true,
-  "dependencies": {
-    "axios": "^0.19.2",
-    "body-parser": "^1.19.0",
-    "bunyan": "^1.8.12",
-    "cheerio": "^1.0.0-rc.3",
-    "cookie-parser": "~1.4.4",
-    "cross-env": "^7.0.2",
-    "crypto": "^1.0.1",
-    "crypto-js": "^4.0.0",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1",
-    "random": "^2.2.0",
-    "sequelize": "^5.21.5",
-    "sqlite3": "^4.1.1"
-  },
-  "devDependencies": {
-    "eslint": "^6.8.0"
-  }
+	"name": "ohnkyta-bot",
+	"version": "1.0.0",
+	"description": "练习用的bot",
+	"main": "index.js",
+	"scripts": {
+		"test": "node test.js | node_modules\\.bin\\bunyan",
+		"start": "node_modules\\.bin\\cross-env NODE_ENV=production PORT=9961 TZ='Asia/Shanghai' node ./bin/ohnkyta-bot"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/OhnkytaBlabdey/ohnkyta-bot.git"
+	},
+	"keywords": [
+		"QQ",
+		"bot"
+	],
+	"author": "OhnkytaBlabdey",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/OhnkytaBlabdey/ohnkyta-bot/issues"
+	},
+	"homepage": "https://github.com/OhnkytaBlabdey/ohnkyta-bot#readme",
+	"private": true,
+	"dependencies": {
+		"axios": "^0.19.2",
+		"body-parser": "^1.19.0",
+		"bunyan": "^1.8.12",
+		"cheerio": "^1.0.0-rc.3",
+		"cookie-parser": "~1.4.4",
+		"cross-env": "^7.0.2",
+		"crypto": "^1.0.1",
+		"crypto-js": "^4.0.0",
+		"debug": "~2.6.9",
+		"express": "~4.16.1",
+		"http-errors": "~1.6.3",
+		"morgan": "~1.9.1",
+		"node-fetch": "^2.6.1",
+		"random": "^2.2.0",
+		"sequelize": "^5.21.5",
+		"sqlite3": "^4.1.1"
+	},
+	"devDependencies": {
+		"eslint": "^6.8.0"
+	}
 }

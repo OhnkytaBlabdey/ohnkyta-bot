@@ -1,18 +1,7 @@
-// const jielong = require('./routes/apps/jielong');
-// const jielong = async (id, name) => {
-// 	return new Promise((x) => {
-// 		setTimeout(() => {
-// 			x({
-// 				status: 'ok'
-// 			});
-// 		}, 2000);
-// 	});
-// };
+const monitor = require('./routes/apps/liveMonitor');
+const log =require('./routes/apps/logger');
+monitor.addSub(528210);
+(async ()=>{
+	log.info(await monitor.isOnLiveAsync(528210));
+})();
 
-// (async () => {
-// 	const rep = await jielong(123, '龙子');
-// 	console.log('rep : ' + (rep.status));
-// 	console.log('rep : ' + JSON.stringify(rep));
-// })();
-const chat = require('./routes/apps/chatSync');
-chat('a', 'b', 'c');
