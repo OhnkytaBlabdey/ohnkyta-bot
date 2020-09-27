@@ -12,9 +12,9 @@ const isOnLive = async (id) => {
 					(async () => {
 						const json = await res.json();
 						const data = json.data;
-						log.info(data);
+						log.debug(data);
 						if (data && data.live_status != undefined) {
-							log.info(id + '直播状态获取结果' + data.live_status);
+							log.debug(id + '直播状态获取结果' + data.live_status);
 							Status(data.live_status == 1);
 						}
 					})();
