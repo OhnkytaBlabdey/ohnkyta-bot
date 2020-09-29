@@ -112,7 +112,7 @@ monitor.chk = async (id, name, group_id) => {
 			} else if (!isOn && flag) {
 				// 提醒下播
 				log.info('检测到订阅的直播结束，要通知');
-				sendReply(group_id, group_id, '【' + name + '】 的直播结束了');
+				sendReply(group_id, '【' + name + '】 的直播结束了');
 				subs[0].mentioned = false;
 				db.update(
 					{
