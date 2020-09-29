@@ -67,7 +67,8 @@ monitor.chk = async (id, name, group_id) => {
 				log.warn(err);
 			}
 			if (subs.length == 0) {
-				log.warn('内存里没有这个直播间的记录');
+				log.warn('没有这个直播间的记录');
+				log.warn('查询参数：', id, name, group_id);
 				return;
 			}
 			const flag = subs[0].mentioned;
@@ -75,7 +76,7 @@ monitor.chk = async (id, name, group_id) => {
 
 			if (isOn && !flag) {
 				// 提醒开播
-				log.info('检测到订阅的直播开始，要通知');
+				log.info('检测到订阅的直播' + id + '开始，要通知');
 				sendReply(
 					group_id,
 					'【' +
@@ -98,9 +99,9 @@ monitor.chk = async (id, name, group_id) => {
 					(err, ct) => {
 						if (err) {
 							log.warn(err);
-							if (ct != 1) {
-								log.warn('替换了多个记录');
-							}
+						}
+						if (ct != 1) {
+							log.warn('替换了多个记录', ct);
 						}
 					}
 				);
@@ -121,9 +122,9 @@ monitor.chk = async (id, name, group_id) => {
 					(err, ct) => {
 						if (err) {
 							log.warn(err);
-							if (ct != 1) {
-								log.warn('替换了多个记录');
-							}
+						}
+						if (ct != 1) {
+							log.warn('替换了多个记录', ct);
 						}
 					}
 				);
@@ -161,9 +162,9 @@ monitor.addSub = async (id, name, group_id) => {
 						log.warn(err);
 						return;
 					}
-					if (doc) {
-						log.info('订阅添加', id);
-					}
+					log.info('订阅添加', id);
+					log.info(doc);
+					monitor.chk(id, name, group_id);
 					setInterval(monitor.chk(id, name, group_id), 60000);
 					log.info('反馈订阅执行情况');
 					sendReply(group_id, '【' + name + '】 的直播订阅成功');
@@ -182,6 +183,7 @@ db.find({}, (err, docs) => {
 		log.warn(err);
 	}
 	docs.forEach((sub) => {
+		monitor.chk(sub.lid, sub.name, sub.gid);
 		setInterval(() => {
 			monitor.chk(sub.lid, sub.name, sub.gid);
 		}, 60000);
