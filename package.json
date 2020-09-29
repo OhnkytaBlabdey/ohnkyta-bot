@@ -4,8 +4,8 @@
 	"description": "练习用的bot",
 	"main": "index.js",
 	"scripts": {
-		"test": "node test.js | node_modules\\.bin\\bunyan",
-		"start": "node_modules\\.bin\\cross-env NODE_ENV=production PORT=9961 TZ='Asia/Shanghai' node ./bin/ohnkyta-bot"
+		"test": "node test.js | bunyan",
+		"start": "cross-env NODE_ENV=production PORT=9961 TZ='Asia/Shanghai' node ./bin/ohnkyta-bot"
 	},
 	"repository": {
 		"type": "git",
@@ -37,10 +37,10 @@
 		"morgan": "~1.9.1",
 		"node-fetch": "^2.6.1",
 		"random": "^2.2.0",
-		"sequelize": "^5.21.5",
-		"sqlite3": "^4.1.1"
+		"sequelize": "^5.21.5"
 	},
 	"devDependencies": {
-		"eslint": "^6.8.0"
+		"eslint": "^6.8.0",
+		"sqlite3": "^4.2.0"
 	}
 }
