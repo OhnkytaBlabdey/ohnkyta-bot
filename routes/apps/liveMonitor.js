@@ -132,49 +132,46 @@ monitor.chk = async (id, name, group_id) => {
 	);
 };
 monitor.addSub = async (id, name, group_id) => {
-	await (async () => {
-		return new Promise(() => {
-			db.find(
-				{
-					gid: group_id,
-					lid: id
-				},
-				(err, docs) => {
-					if (err) {
-						log.warn(err);
-					}
-					if (docs.length > 0) {
-						log.info('订阅重复添加', id);
-						sendReply(group_id, '房间号为 “' + id + '” 的直播已经订阅过了');
-						return false;
-					}
-					log.info('订阅未重复添加', id);
-				}
-			);
-		});
-	})();
-	//TODO 写入订阅记录
-	db.insert(
+	db.find(
 		{
-			lid: id,
 			gid: group_id,
-			name: name,
-			mentioned: false
+			lid: id
 		},
-		(err, doc) => {
+		(err, docs) => {
 			if (err) {
 				log.warn(err);
 			}
-			if (doc) {
-				log.info('订阅添加', id);
+			if (docs.length > 0) {
+				log.info('订阅重复添加', id);
+				sendReply(group_id, '房间号为 “' + id + '” 的直播已经订阅过了');
+				//return false;
+				return;
 			}
+			log.info('订阅未重复添加', id);
+			//TODO 写入订阅记录
+			db.insert(
+				{
+					lid: id,
+					gid: group_id,
+					name: name,
+					mentioned: false
+				},
+				(err, doc) => {
+					if (err) {
+						log.warn(err);
+						return;
+					}
+					if (doc) {
+						log.info('订阅添加', id);
+					}
+					setInterval(monitor.chk(id, name, group_id), 60000);
+					log.info('反馈订阅执行情况');
+					sendReply(group_id, '【' + name + '】 的直播订阅成功');
+					//return true;
+				}
+			);
 		}
 	);
-
-	setInterval(monitor.chk(id, name, group_id), 60000);
-	log.info('反馈订阅执行情况');
-	sendReply(group_id, '【' + name + '】 的直播订阅成功');
-	return true;
 };
 monitor.isOnLiveAsync = async (id) => {
 	return await isOnLive(id);
