@@ -171,12 +171,14 @@ monitor.addSub = async (id, name, group_id) => {
 					}
 					log.info('订阅添加', id);
 					log.info(doc);
-
+					monitor.chk(id, name, group_id);
 					//return true;
 				}
 			);
-			monitor.chk(id, name, group_id);
-			setInterval(monitor.chk(id, name, group_id), 60000);
+
+			setInterval(() => {
+				monitor.chk(id, name, group_id);
+			}, 60000);
 			log.info('反馈订阅执行情况');
 			sendReply(group_id, '【' + name + '】 的直播订阅成功');
 		}
