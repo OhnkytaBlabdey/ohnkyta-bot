@@ -123,7 +123,10 @@ router.post('/', function (req, res) {
 					req.body.user_id
 				);
 				if (req.body.group_id == 905253381) {
-					const title = req.body.sender.title;
+					//有时会出现unknown
+					const title =
+						(req.body.sender.title !== 'unknown' && req.body.sender.title) ||
+						'群成员';
 					const card = req.body.sender.card || req.body.sender.nickname;
 					const message = req.body.message;
 					chatSync(title, card, message);
