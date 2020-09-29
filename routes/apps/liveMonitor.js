@@ -182,7 +182,9 @@ db.find({}, (err, docs) => {
 		log.warn(err);
 	}
 	docs.forEach((sub) => {
-		setInterval(monitor.chk(sub.lid, sub.name, sub.gid), 60000);
+		setInterval(() => {
+			monitor.chk(sub.lid, sub.name, sub.gid);
+		}, 60000);
 	});
 });
 module.exports = monitor;
