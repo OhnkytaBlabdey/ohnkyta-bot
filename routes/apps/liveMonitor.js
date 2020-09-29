@@ -3,11 +3,11 @@ const log = require('./logger');
 const fetch = require('node-fetch');
 const axios = require('axios');
 const config = require('../../config.json');
-
+const path = require('path');
 let dataStore = require('nedb');
 
 let db = new dataStore({
-	filename: process.cwd()+'/liveSubscribe.ndb'
+	filename: path.resolve( __dirname, '../../liveSubscribe.ndb')
 });
 db.loadDatabase((err) => {
 	if (err) {
@@ -94,6 +94,9 @@ monitor.chk = async (id, name, group_id) => {
 						lid: id
 					},
 					{
+						gid: group_id,
+						lid: id,
+						name:name,
 						mentioned: true
 					},
 					{},
@@ -117,6 +120,9 @@ monitor.chk = async (id, name, group_id) => {
 						lid: id
 					},
 					{
+						gid: group_id,
+						lid: id,
+						name:name,
 						mentioned: false
 					},
 					{},
