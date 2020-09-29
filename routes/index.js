@@ -77,7 +77,8 @@ router.post('/', function (req, res) {
 				res.status(204);
 				const group_id = req.body.group_id;
 				const params = req.body.message.split(RegExp(/\s/), 3);
-				const id = params[1];
+				const idStr = params[1];
+				const id = parseInt(idStr);
 				const name = params[2];
 				liveMonitor.addSub(id, name, group_id);
 			} else if (RegExp(/^接龙\s/).test(req.body.message)) {
