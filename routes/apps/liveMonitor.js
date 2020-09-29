@@ -7,7 +7,7 @@ const path = require('path');
 let dataStore = require('nedb');
 
 let db = new dataStore({
-	filename: path.resolve( __dirname, '../../liveSubscribe.ndb')
+	filename: path.resolve(__dirname, '../../liveSubscribe.ndb')
 });
 db.loadDatabase((err) => {
 	if (err) {
@@ -96,7 +96,7 @@ monitor.chk = async (id, name, group_id) => {
 					{
 						gid: group_id,
 						lid: id,
-						name:name,
+						name: name,
 						mentioned: true
 					},
 					{},
@@ -122,7 +122,7 @@ monitor.chk = async (id, name, group_id) => {
 					{
 						gid: group_id,
 						lid: id,
-						name:name,
+						name: name,
 						mentioned: false
 					},
 					{},
@@ -171,13 +171,14 @@ monitor.addSub = async (id, name, group_id) => {
 					}
 					log.info('订阅添加', id);
 					log.info(doc);
-					monitor.chk(id, name, group_id);
-					setInterval(monitor.chk(id, name, group_id), 60000);
-					log.info('反馈订阅执行情况');
-					sendReply(group_id, '【' + name + '】 的直播订阅成功');
+
 					//return true;
 				}
 			);
+			monitor.chk(id, name, group_id);
+			setInterval(monitor.chk(id, name, group_id), 60000);
+			log.info('反馈订阅执行情况');
+			sendReply(group_id, '【' + name + '】 的直播订阅成功');
 		}
 	);
 };

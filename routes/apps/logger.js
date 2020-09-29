@@ -4,6 +4,9 @@ const bunyan = require('bunyan');
 const path = require('path');
 const logger = bunyan.createLogger({
 	name: 'bot',
+	time:(()=>{
+		return new Date().toLocaleString();
+	})(),
 	streams: [
 		{
 			level: 'info',
