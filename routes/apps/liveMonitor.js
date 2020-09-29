@@ -5,8 +5,9 @@ const axios = require('axios');
 const config = require('../../config.json');
 
 let dataStore = require('nedb');
+
 let db = new dataStore({
-	filename: './liveSubscribe.ndb'
+	filename: process.cwd()+'/liveSubscribe.ndb'
 });
 db.loadDatabase((err) => {
 	if (err) {
