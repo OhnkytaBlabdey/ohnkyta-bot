@@ -29,7 +29,22 @@ const sendReply = async (gid, msg) => {
 			if (err) log.warn(err);
 		});
 };
-const isOnLive = async (id) => {
+const getRoomInfo = async (uid) => {
+	return new Promise((info) => {
+		fetch(
+			'https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld?mid=' + uid
+		)
+			.then((res) => {
+				if (res && res.title && res.cover) {
+					info(res);
+				}
+			})
+			.catch((err) => {
+				if (err) log.warn(err);
+			});
+	});
+};
+const roomInit = async (id) => {
 	return new Promise((Status) => {
 		fetch('https://api.live.bilibili.com/room/v1/Room/room_init?id=' + id)
 			.then((res) => {
@@ -40,7 +55,7 @@ const isOnLive = async (id) => {
 						log.debug(data);
 						if (data && data.live_status != undefined) {
 							log.debug(id + '直播状态获取结果' + data.live_status);
-							Status(data.live_status == 1);
+							Status(data);
 						}
 					})();
 				} catch (error) {
@@ -73,11 +88,15 @@ monitor.chk = async (id, name, group_id) => {
 				return;
 			}
 			const flag = subs[0].mentioned;
-			const isOn = await isOnLive(id);
+			const room = await roomInit(id);
+			const isOn = room.live_status == 1;
 
 			if (isOn && !flag) {
 				// 提醒开播
 				log.info('检测到订阅的直播' + id + '开始，要通知');
+				const info = await getRoomInfo(room.uid);
+				const title = info.title;
+				const coverUrl = info.url;
 				sendReply(
 					group_id,
 					'【' +
@@ -85,7 +104,14 @@ monitor.chk = async (id, name, group_id) => {
 						'】 的直播开始了\n' +
 						'直播间：' +
 						'https://live.bilibili.com/' +
-						id
+						id +
+						'\n' +
+						'【' +
+						title +
+						'】\n' +
+						'[CQ:image,file=' +
+						coverUrl +
+						']'
 				);
 				subs[0].mentioned = true;
 				db.update(
@@ -185,7 +211,7 @@ monitor.addSub = async (id, name, group_id) => {
 	);
 };
 monitor.isOnLiveAsync = async (id) => {
-	return await isOnLive(id);
+	return await roomInit(id);
 };
 //TODO 启动时读取所有的订阅消息，并对它们添加轮询任务
 db.find({}, (err, docs) => {
