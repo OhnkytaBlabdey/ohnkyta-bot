@@ -35,8 +35,17 @@ const getRoomInfo = async (uid) => {
 			'https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld?mid=' + uid
 		)
 			.then((res) => {
-				if (res && res.title && res.cover) {
-					info(res);
+				try {
+					(async () => {
+						const json = await res.json();
+						const data = json.data;
+						log.debug(data);
+						if (data && data.title && data.cover) {
+							info(data);
+						}
+					})();
+				} catch (err) {
+					log.warn(err);
 				}
 			})
 			.catch((err) => {
