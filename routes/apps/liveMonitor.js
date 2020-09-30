@@ -39,7 +39,7 @@ const getRoomInfo = async (uid) => {
 					(async () => {
 						const json = await res.json();
 						const data = json.data;
-						log.debug(data);
+						log.info(data);
 						if (data && data.title && data.cover) {
 							info(data);
 						}
@@ -105,7 +105,7 @@ monitor.chk = async (id, name, group_id) => {
 				log.info('检测到订阅的直播' + id + '开始，要通知');
 				const info = await getRoomInfo(room.uid);
 				const title = info.title;
-				const coverUrl = info.url;
+				const coverUrl = info.cover;
 				sendReply(
 					group_id,
 					'【' +
