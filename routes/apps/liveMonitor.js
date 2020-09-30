@@ -108,49 +108,51 @@ monitor.chk = async (id, name, group_id) => {
 			const isOn = room.live_status == 1;
 
 			if (isOn && !flag) {
-				// 提醒开播
-				log.info('检测到订阅的直播' + id + '开始，要通知');
-				const info = await getRoomInfo(room.uid);
-				const title = info.title;
-				const coverUrl = info.cover;
-				sendReply(
-					group_id,
-					'【' +
-						name +
-						'】 的直播开始了\n' +
-						'直播间：' +
-						'https://live.bilibili.com/' +
-						id +
-						'\n' +
+				setTimeout(async () => {
+					// 提醒开播
+					log.info('检测到订阅的直播' + id + '开始，要通知');
+					const info = await getRoomInfo(room.uid);
+					const title = info.title;
+					const coverUrl = info.cover;
+					sendReply(
+						group_id,
 						'【' +
-						title +
-						'】\n' +
-						'[CQ:image,file=' +
-						coverUrl +
-						']'
-				);
-				subs[0].mentioned = true;
-				db.update(
-					{
-						gid: group_id,
-						lid: id
-					},
-					{
-						gid: group_id,
-						lid: id,
-						name: name,
-						mentioned: true
-					},
-					{},
-					(err, ct) => {
-						if (err) {
-							log.warn(err);
+							name +
+							'】 的直播开始了\n' +
+							'直播间：' +
+							'https://live.bilibili.com/' +
+							id +
+							'\n' +
+							'【' +
+							title +
+							'】\n' +
+							'[CQ:image,file=' +
+							coverUrl +
+							']'
+					);
+					subs[0].mentioned = true;
+					db.update(
+						{
+							gid: group_id,
+							lid: id
+						},
+						{
+							gid: group_id,
+							lid: id,
+							name: name,
+							mentioned: true
+						},
+						{},
+						(err, ct) => {
+							if (err) {
+								log.warn(err);
+							}
+							if (ct != 1) {
+								log.warn('替换了多个记录', ct);
+							}
 						}
-						if (ct != 1) {
-							log.warn('替换了多个记录', ct);
-						}
-					}
-				);
+					);
+				}, 1000);
 			} else if (!isOn && flag) {
 				// 提醒下播
 				log.info('检测到订阅的直播结束，要通知');
