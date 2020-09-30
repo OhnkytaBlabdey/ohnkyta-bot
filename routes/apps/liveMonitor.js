@@ -112,24 +112,36 @@ monitor.chk = async (id, name, group_id) => {
 					// 提醒开播
 					log.info('检测到订阅的直播' + id + '开始，要通知');
 					const info = await getRoomInfo(room.uid);
-					const title = info.title;
-					const coverUrl = info.cover;
-					sendReply(
-						group_id,
-						'【' +
-							name +
-							'】 的直播开始了\n' +
-							'直播间：' +
-							'https://live.bilibili.com/' +
-							id +
-							'\n' +
+					if (info) {
+						const title = info.title;
+						const coverUrl = info.cover;
+						sendReply(
+							group_id,
 							'【' +
-							title +
-							'】\n' +
-							'[CQ:image,file=' +
-							coverUrl +
-							']'
-					);
+								name +
+								'】 的直播开始了\n' +
+								'直播间：' +
+								'https://live.bilibili.com/' +
+								id +
+								'\n' +
+								'【' +
+								title +
+								'】\n' +
+								'[CQ:image,file=' +
+								coverUrl +
+								']'
+						);
+					} else {
+						sendReply(
+							group_id,
+							'【' +
+								name +
+								'】 的直播开始了\n' +
+								'直播间：' +
+								'https://live.bilibili.com/' +
+								id
+						);
+					}
 					subs[0].mentioned = true;
 					db.update(
 						{
