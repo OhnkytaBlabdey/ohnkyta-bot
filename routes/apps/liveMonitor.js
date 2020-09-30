@@ -42,6 +42,8 @@ const getRoomInfo = async (uid) => {
 						log.info(data);
 						if (data && data.title && data.cover) {
 							info(data);
+						}else{
+							log.warn('参数', uid);
 						}
 					})();
 				} catch (err) {
@@ -61,7 +63,7 @@ const roomInit = async (id) => {
 					(async () => {
 						const json = await res.json();
 						const data = json.data;
-						log.debug(data);
+						log.info(data);
 						if (data && data.live_status != undefined) {
 							log.debug(id + '直播状态获取结果' + data.live_status);
 							Status(data);
