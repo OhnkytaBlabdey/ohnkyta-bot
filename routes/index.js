@@ -81,6 +81,13 @@ router.post('/', function (req, res) {
 				const id = parseInt(idStr);
 				const name = params[2];
 				liveMonitor.addSub(id, name, group_id);
+			} else if (RegExp(/^取消直播订阅\s\d+/).test(req.body.message)) {
+				res.status(204);
+				const group_id = req.body.group_id;
+				const params = req.body.message.split(RegExp(/\s/), 2);
+				const idStr = params[1];
+				const id = parseInt(idStr);
+				liveMonitor.removeSub(id, group_id);
 			} else if (RegExp(/^接龙\s/).test(req.body.message)) {
 				const card = req.body.message.replace('接龙 ', '');
 				log.info('接龙收到', { name: card });
