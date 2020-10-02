@@ -265,6 +265,7 @@ monitor.removeSub= async (id, group_id)=>{
 						return;
 					}
 					log.info('订阅取消', id, num);
+					sendReply(group_id, '【' + id + '】 的直播订阅取消了');
 				}
 			);
 };
