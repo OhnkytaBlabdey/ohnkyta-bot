@@ -32,10 +32,11 @@ const sendReply = async (gid, msg) => {
 const getRoomInfo = async (uid) => {
 	return new Promise((info) => {
 		fetch(
-			'https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld?mid=' + uid, {
+			'https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld?mid=' + uid,
+			{
 				credentials: 'include',
-				headers:{
-					'cookie':config['cookie']
+				headers: {
+					cookie: config['cookie']
 				}
 			}
 		)
@@ -251,23 +252,23 @@ monitor.isOnLiveAsync = async (id) => {
 	return await roomInit(id);
 };
 monitor.getInfo = getRoomInfo;
-monitor.removeSub= async (id, group_id)=>{
+monitor.removeSub = async (id, group_id) => {
 	//TODO 删记录，停止轮询
 	log.info('取消直播订阅', id, group_id);
 	db.remove(
-				{
-					lid: id,
-					gid: group_id
-				},
-				(err, num) => {
-					if (err) {
-						log.warn(err);
-						return;
-					}
-					log.info('订阅取消', id, num);
-					sendReply(group_id, '【' + id + '】 的直播订阅取消了');
-				}
-			);
+		{
+			lid: id,
+			gid: group_id
+		},
+		(err, num) => {
+			if (err) {
+				log.warn(err);
+				return;
+			}
+			log.info('订阅取消', id, num);
+			if (num > 0) sendReply(group_id, '【' + id + '】 的直播订阅取消了');
+		}
+	);
 };
 //TODO 启动时读取所有的订阅消息，并对它们添加轮询任务
 db.find({}, (err, docs) => {
