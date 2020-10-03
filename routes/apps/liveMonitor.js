@@ -240,9 +240,6 @@ monitor.addSub = async (id, name, group_id) => {
 				}
 			);
 
-			setInterval(() => {
-				monitor.chk(id, name, group_id);
-			}, 60000);
 			log.info('反馈订阅执行情况');
 			sendReply(group_id, '【' + name + '】 的直播订阅成功');
 		}
@@ -270,16 +267,16 @@ monitor.removeSub = async (id, group_id) => {
 		}
 	);
 };
-//TODO 启动时读取所有的订阅消息，并对它们添加轮询任务
-db.find({}, (err, docs) => {
+//轮询查库
+setInterval(async() => {
+	db.find({}, (err, docs) => {
 	if (err) {
 		log.warn(err);
 	}
 	docs.forEach((sub) => {
 		monitor.chk(sub.lid, sub.name, sub.gid);
-		setInterval(() => {
-			monitor.chk(sub.lid, sub.name, sub.gid);
-		}, 60000);
 	});
 });
+}, 60000);
+
 module.exports = monitor;
