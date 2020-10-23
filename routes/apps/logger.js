@@ -17,7 +17,14 @@ const logger = bunyan.createLogger({
 			type: 'rotating-file',
 			path: path.normalize(__dirname + '/../..') + '/log/info/infos.log',
 			period: '2h',
-			count: 5
+			count: 8
+		},
+		{
+			level: 'warn',
+			type: 'rotating-file',
+			path: path.normalize(__dirname + '/../..') + '/log/warn/warns.log',
+			period: '24h',
+			count: 8
 		}
 	]
 });
