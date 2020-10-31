@@ -1,7 +1,7 @@
 'use-strict';
 const log = require('./logger');
+const sendReply = require('./Util').sendReply;
 const fetch = require('node-fetch');
-const axios = require('axios');
 const config = require('../../config.json');
 const path = require('path');
 let dataStore = require('nedb');
@@ -15,20 +15,7 @@ db.loadDatabase((err) => {
 	}
 });
 
-const sendReply = async (gid, msg) => {
-	const url = 'http://localhost:5700/send_group_msg';
-	axios.default
-		.get(url, {
-			params: {
-				access_token: config['auth'],
-				group_id: gid,
-				message: msg
-			}
-		})
-		.catch((err) => {
-			if (err) log.warn(err);
-		});
-};
+
 const getRoomInfo = async (uid) => {
 	return new Promise((info) => {
 		fetch(

@@ -6,6 +6,7 @@ const log = require('./apps/logger');
 const saver = require('./apps/saveRec');
 const jielong = require('./apps/jielong');
 const drawSpell = require('./apps/spellCard');
+const setu = require('./apps/setu');
 const chatSync = require('./apps/chatSync');
 const liveMonitor = require('./apps/liveMonitor');
 const axios = require('axios');
@@ -73,6 +74,8 @@ router.post('/', function (req, res) {
 						'\n\t————' +
 						(mingyan.author || '匿名')
 				});
+			} else if ('/色图' == req.body.message) {
+				setu(req.body.group_id);
 			} else if (RegExp(/^直播订阅\s\d+\s\S+/).test(req.body.message)) {
 				res.status(204);
 				const group_id = req.body.group_id;
