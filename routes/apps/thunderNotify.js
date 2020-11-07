@@ -32,8 +32,12 @@ const init = () => {
 						date: timestamp,
 						hash: hash
 					});
-					if (hash && timestamp) {
-						sendReply(905253381, '打雷啦');
+					if (hash && timestamp && dat) {
+						if (dat == 'thunder') {
+							sendReply(905253381, '打雷啦');
+						}else{
+							sendReply(905253381, '雷暴停止啦');
+						}
 					}
 				} else {
 					log.warn({
