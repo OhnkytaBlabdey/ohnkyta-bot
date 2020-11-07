@@ -30,7 +30,8 @@ const init = () => {
 				req_hash:params.code
 			});
 		}
-		resp.statusCode(200);
+		resp.write('ok');
+		resp.end();
 	}).listen(9999);
 };
 let out = {};
