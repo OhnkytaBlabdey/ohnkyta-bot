@@ -8,6 +8,7 @@ const jielong = require('./apps/jielong');
 const drawSpell = require('./apps/spellCard');
 const setu = require('./apps/setu');
 const chatSync = require('./apps/chatSync');
+require('./apps/thunderNotify');
 const liveMonitor = require('./apps/liveMonitor');
 const axios = require('axios');
 const config = require('../config.json');
