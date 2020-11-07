@@ -4,35 +4,50 @@ const crypto = require('crypto');
 const http = require('http');
 const log = require('./logger');
 const sendReply = require('./Util').sendReply;
-const url = require('url');
 
 const init = () => {
-	http.createServer((req, resp) => {
-		const params = url.parse(req.url, true).query;
-		const dat = params.val;
-		// const timestamp = new Date().valueOf();
-		const timestamp = params.date;
-		const sha256 = crypto.createHash('sha256');
-		sha256.update(dat + timestamp + config['salt']);
-		const hash = sha256.digest('hex');
-		if (hash == params.code) {
-			log.info({
-				weather: dat,
-				date: timestamp,
-				hash: hash
+	http
+		.createServer((req, resp) => {
+			let body = '';
+			req.on('data', function (chunk) {
+				body += chunk;
 			});
-			sendReply(905253381, '打雷啦');
-		}else{
-			log.warn({
-				weather: dat,
-				date: timestamp,
-				hash: hash,
-				req_hash:params.code
+			req.on('end', function () {
+				// 解析参数
+				const params = JSON.parse(body);
+				body = '';
+				if (!params) {
+					log.warn('不合法的json', body);
+					return;
+				}
+				const dat = params.val;
+				// const timestamp = new Date().valueOf();
+				const timestamp = params.date;
+				const sha256 = crypto.createHash('sha256');
+				sha256.update(dat + timestamp + config['salt']);
+				const hash = sha256.digest('hex');
+				if (hash == params.code) {
+					log.info({
+						weather: dat,
+						date: timestamp,
+						hash: hash
+					});
+					if (hash && timestamp) {
+						sendReply(905253381, '打雷啦');
+					}
+				} else {
+					log.warn({
+						weather: dat,
+						date: timestamp,
+						hash: hash,
+						req_hash: params.code
+					});
+				}
+				resp.write('ok');
+				resp.end();
 			});
-		}
-		resp.write('ok');
-		resp.end();
-	}).listen(9999);
+		})
+		.listen(9999);
 };
 let out = {};
 out.init = init;
