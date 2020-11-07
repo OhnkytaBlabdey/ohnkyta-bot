@@ -31,7 +31,7 @@ const init = () => {
 			});
 		}
 		resp.statusCode(200);
-	});
+	}).listen(9999);
 };
 let out = {};
 out.init = init;
