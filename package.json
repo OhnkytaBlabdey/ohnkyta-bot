@@ -4,7 +4,7 @@
 	"description": "练习用的bot",
 	"main": "index.js",
 	"scripts": {
-		"test": "node test.js | bunyan",
+		"test": "cross-env NODE_ENV=dev PORT=9961 TZ='Asia/Shanghai' node test.js | bunyan",
 		"start": "cross-env NODE_ENV=production PORT=9961 TZ='Asia/Shanghai' node ./bin/ohnkyta-bot"
 	},
 	"repository": {
