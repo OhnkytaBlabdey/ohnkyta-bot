@@ -30,6 +30,7 @@ const getSetu = () => {
 };
 
 const handleSetu = async (gid) => {
+	log.info('收到色图请求from', gid);
 	const setu = await getSetu();
 	sendReply(
 		gid,

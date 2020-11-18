@@ -9,6 +9,7 @@ const drawSpell = require('./apps/spellCard');
 const setu = require('./apps/setu');
 const chatSync = require('./apps/chatSync');
 require('./apps/thunderNotify');
+const child_process = require('child_process');
 const liveMonitor = require('./apps/liveMonitor');
 const axios = require('axios');
 const config = require('../config.json');
@@ -48,6 +49,21 @@ router.post('/', function (req, res) {
 				res.send({
 					at_sender: false,
 					reply: 'HTTP API功能正常[CQ:face,id=179]'
+				});
+			} else if (
+				'歪比巴卜' === req.body.message &&
+				req.body.user_id == 1263189143
+			) {
+				res.send({
+					at_sender: false,
+					reply: '即将重启[CQ:face,id=178]'
+				});
+				const shell_cmd =
+					'cross-env NODE_ENV=production PORT=9961 TZ=\'Asia/Shanghai\' pm2 restart ohnkyta-bot --update-env';
+				child_process.exec(shell_cmd, (err, stdout, stderr) => {
+					if (err) log.warn(err);
+					if (stdout) log.warn(stdout);
+					if (stderr) log.warn(stderr);
 				});
 			} else if ('今日运势' === req.body.message) {
 				//TODO 支持分时间段和分用户
