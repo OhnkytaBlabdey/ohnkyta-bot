@@ -93,7 +93,10 @@ router.post('/', function (req, res) {
 				});
 			} else if ('/色图' == req.body.message) {
 				setu(req.body.group_id);
-			} else if (RegExp(/^直播订阅\s\d+\s\S+/).test(req.body.message)) {
+			} else if (
+				RegExp(/^直播订阅\s\d+\s\S+/).test(req.body.message) &&
+				req.body.user_id == 1263189143
+			) {
 				res.status(204);
 				const group_id = req.body.group_id;
 				const params = req.body.message.split(RegExp(/\s/), 3);
@@ -101,7 +104,10 @@ router.post('/', function (req, res) {
 				const id = parseInt(idStr);
 				const name = params[2];
 				liveMonitor.addSub(id, name, group_id);
-			} else if (RegExp(/^取消直播订阅\s\d+/).test(req.body.message)) {
+			} else if (
+				RegExp(/^取消直播订阅\s\d+/).test(req.body.message) &&
+				req.body.user_id == 1263189143
+			) {
 				res.status(204);
 				const group_id = req.body.group_id;
 				const params = req.body.message.split(RegExp(/\s/), 2);
