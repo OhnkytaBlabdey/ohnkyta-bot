@@ -5,7 +5,17 @@ const sendReply = require('./Util').sendReply;
 
 const getSetu = (keyword) => {
 	return new Promise((setu) => {
-		fetch('https://api.lolicon.app/setu/?keyword=' + keyword)
+		let data = new FormData();
+		if (keyword) {
+			data.append('keyword', keyword);
+		}
+		fetch('https://api.lolicon.app/setu/', {
+			method: 'post',
+			headers: {
+				'Content-Type': 'multipart/formdata'
+			},
+			body: data
+		})
 			.then((res) => {
 				try {
 					(async () => {
@@ -31,9 +41,6 @@ const getSetu = (keyword) => {
 
 const handleSetu = async (gid, keyword) => {
 	log.info('收到色图请求from', gid, keyword);
-	if (!keyword) {
-		keyword = '';
-	}
 	const setu = await getSetu(keyword);
 	if (setu.url) {
 		sendReply(
