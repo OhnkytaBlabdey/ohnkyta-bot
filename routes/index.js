@@ -94,7 +94,7 @@ router.post('/', function (req, res) {
 			} else if (RegExp(/^\/色图[\s\S+]?/).test(req.body.message)) {
 				let keyword = null;
 				if(RegExp(/^\/色图\s\S+/).test(req.body.message))
-					keyword = req.body.message.split(RegExp(/\s/, 2))[1];
+					keyword = req.body.message.split(RegExp(/\s/), 2)[1];
 				setu(req.body.group_id, keyword);
 			} else if (
 				RegExp(/^直播订阅\s\d+\s\S+/).test(req.body.message) &&
