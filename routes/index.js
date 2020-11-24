@@ -92,7 +92,9 @@ router.post('/', function (req, res) {
 						(mingyan.author || '匿名')
 				});
 			} else if (RegExp(/^\/色图[\s\S+]?/).test(req.body.message)) {
-				const keyword = req.body.message.split(RegExp(/\s/, 2))[1];
+				let keyword = null;
+				if(RegExp(/^\/色图\s\S+/).test(req.body.message))
+					keyword = req.body.message.split(RegExp(/\s/, 2))[1];
 				setu(req.body.group_id, keyword);
 			} else if (
 				RegExp(/^直播订阅\s\d+\s\S+/).test(req.body.message) &&

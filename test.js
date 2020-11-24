@@ -4,4 +4,5 @@ const log =require('./routes/apps/logger');
 
 log.info(process.cwd());
 log.info(process.cwd());
-log.info(RegExp(/^色图[\s\S+]?/).test('色图 阿巴'));
+log.info(RegExp(/^\/色图[\s\S+]?/).test('/色图 阿巴'));
+log.info(RegExp(/^\/色图[\s\S+]?/).test('/色图'));
