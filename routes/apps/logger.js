@@ -13,8 +13,17 @@ const logger = bunyan.createLogger({
 	// stream:new MyStream(),
 	streams: [
 		{
-			level: 'info',
+			level: 'debug',
 			stream: process.stdout
+			// time:new Date().toLocaleString()
+		},
+		{
+			level: 'debug',
+			type: 'rotating-file',
+			path: path.normalize(__dirname + '/../..') + '/log/debug/debugs.log',
+			period: '4h',
+			count: 128
+			// stream:new MyStream(),
 			// time:new Date().toLocaleString()
 		},
 		{
