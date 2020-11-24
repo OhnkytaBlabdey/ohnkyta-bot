@@ -5,7 +5,7 @@ const sendReply = require('./Util').sendReply;
 
 const getSetu = (keyword) => {
 	return new Promise((setu) => {
-		fetch('https://api.lolicon.app/setu/?keyword='+keyword)
+		fetch('https://api.lolicon.app/setu/?keyword=' + keyword)
 			.then((res) => {
 				try {
 					(async () => {
@@ -31,14 +31,18 @@ const getSetu = (keyword) => {
 
 const handleSetu = async (gid, keyword) => {
 	log.info('收到色图请求from', gid, keyword);
-	if(!keyword){
-		keyword='';
+	if (!keyword) {
+		keyword = '';
 	}
 	const setu = await getSetu(keyword);
-	sendReply(
-		gid,
-		'[CQ:image,file=' + setu.url + ']' + setu.title + '\n' + setu.author
-	);
+	if (setu.url) {
+		sendReply(
+			gid,
+			'[CQ:image,file=' + setu.url + ']' + setu.title + '\n' + setu.author
+		);
+	} else {
+		sendReply(gid, setu.msg);
+	}
 };
 
-module.exports=handleSetu;
+module.exports = handleSetu;
