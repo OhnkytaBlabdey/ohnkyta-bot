@@ -10,10 +10,7 @@ const getSetu = (keyword) => {
 			data.append('keyword', keyword);
 		}
 		fetch('https://api.lolicon.app/setu/', {
-			method: 'post',
-			headers: {
-				'Content-Type': 'multipart/formdata'
-			},
+			method: 'get',
 			body: data
 		})
 			.then((res) => {
