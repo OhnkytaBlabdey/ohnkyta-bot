@@ -46,5 +46,15 @@ const logger = bunyan.createLogger({
 		}
 	]
 });
+let warpLogger = {};
+warpLogger.info = (...para)=>{
+	logger.info(para, new Date().toLocaleString());
+};
+warpLogger.warn = (...para)=>{
+	logger.warn(para, new Date().toLocaleString());
+};
+warpLogger.debug = (...para)=>{
+	logger.debug(para, new Date().toLocaleString());
+};
 
-module.exports = logger;
+module.exports = warpLogger;
