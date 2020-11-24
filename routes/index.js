@@ -91,7 +91,7 @@ router.post('/', function (req, res) {
 						'\n\t————' +
 						(mingyan.author || '匿名')
 				});
-			} else if (RegExp(/^色图[\s\S+]?/).test(req.body.message)) {
+			} else if (RegExp(/^\/色图[\s\S+]?/).test(req.body.message)) {
 				const keyword = req.body.message.split(RegExp(/\s/, 2))[1];
 				setu(req.body.group_id, keyword);
 			} else if (
