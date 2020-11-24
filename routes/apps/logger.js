@@ -41,13 +41,13 @@ const logger = bunyan.createLogger({
 let warpLogger = {};
 warpLogger.logger = logger;
 warpLogger.debug = (obj, ...para) => {
-	logger.debug(obj, para.join(), new Date().toLocaleString('zh-CN'));
+	logger.debug(obj, para.join(' '), new Date().toLocaleString('zh-CN'));
 };
 warpLogger.info = (obj, ...para) => {
-	logger.info(obj, para.join(), new Date().toLocaleString('zh-CN'));
+	logger.info(obj, para.join(' '), new Date().toLocaleString('zh-CN'));
 };
 warpLogger.warn = (obj, ...para) => {
-	logger.warn(obj, para.join(), new Date().toLocaleString('zh-CN'));
+	logger.warn(obj, para.join(' '), new Date().toLocaleString('zh-CN'));
 };
 
 
