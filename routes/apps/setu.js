@@ -12,6 +12,10 @@ const getSetu = (keyword) => {
 						const json = await res.json();
 						const data = json.data;
 						log.debug(data);
+						if (data.msg && data.msg.length > 0) {
+							setu(data);
+							return;
+						}
 						if (data && data[0] != undefined) {
 							log.debug('色图获取结果' + data[0]);
 							setu(data[0]);
@@ -39,8 +43,8 @@ const handleSetu = async (gid, keyword) => {
 			'[CQ:image,file=' + setu.url + ']' + setu.title + '\n' + setu.author
 		);
 	} else {
-		sendReply(gid, setu.msg);
 		log.warn('获取色图失败');
+		sendReply(gid, setu.msg);
 	}
 };
 
