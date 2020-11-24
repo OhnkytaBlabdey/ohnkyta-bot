@@ -49,6 +49,7 @@ const handleSetu = async (gid, keyword) => {
 		);
 	} else {
 		sendReply(gid, setu.msg);
+		log.warn('获取色图失败');
 	}
 };
 
