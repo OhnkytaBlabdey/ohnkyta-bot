@@ -10,12 +10,10 @@ MyStream.prototype.write = function (rec) {
 
 const logger = bunyan.createLogger({
 	name: 'bot',
-	// stream:new MyStream(),
 	streams: [
 		{
 			level: 'debug',
 			stream: process.stdout
-			// time:new Date().toLocaleString()
 		},
 		{
 			level: 'debug',
@@ -23,8 +21,6 @@ const logger = bunyan.createLogger({
 			path: path.normalize(__dirname + '/../..') + '/log/debug/debugs.log',
 			period: '4h',
 			count: 128
-			// stream:new MyStream(),
-			// time:new Date().toLocaleString()
 		},
 		{
 			level: 'info',
@@ -32,8 +28,6 @@ const logger = bunyan.createLogger({
 			path: path.normalize(__dirname + '/../..') + '/log/info/infos.log',
 			period: '12h',
 			count: 32
-			// stream:new MyStream(),
-			// time:new Date().toLocaleString()
 		},
 		{
 			level: 'warn',
@@ -41,20 +35,20 @@ const logger = bunyan.createLogger({
 			path: path.normalize(__dirname + '/../..') + '/log/warn/warns.log',
 			period: '24h',
 			count: 64
-			// stream:new MyStream(),
-			// time:new Date().toLocaleString()
 		}
 	]
 });
 let warpLogger = {};
-warpLogger.info = (...para)=>{
-	logger.info(para, new Date().toLocaleString());
+warpLogger.logger = logger;
+warpLogger.debug = (obj, ...para) => {
+	logger.debug(obj, para.join(), new Date().toLocaleString('zh-CN'));
 };
-warpLogger.warn = (...para)=>{
-	logger.warn(para, new Date().toLocaleString());
+warpLogger.info = (obj, ...para) => {
+	logger.info(obj, para.join(), new Date().toLocaleString('zh-CN'));
 };
-warpLogger.debug = (...para)=>{
-	logger.debug(para, new Date().toLocaleString());
+warpLogger.warn = (obj, ...para) => {
+	logger.warn(obj, para.join(), new Date().toLocaleString('zh-CN'));
 };
+
 
 module.exports = warpLogger;
