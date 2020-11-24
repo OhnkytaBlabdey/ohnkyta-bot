@@ -91,8 +91,9 @@ router.post('/', function (req, res) {
 						'\n\t————' +
 						(mingyan.author || '匿名')
 				});
-			} else if ('/色图' == req.body.message) {
-				setu(req.body.group_id);
+			} else if (RegExp(/^色图[\s\S+]/).test(req.body.message)) {
+				const keyword = req.body.message.split(RegExp(/\s/, 2))[1];
+				setu(req.body.group_id, keyword);
 			} else if (
 				RegExp(/^直播订阅\s\d+\s\S+/).test(req.body.message) &&
 				req.body.user_id == 1263189143
