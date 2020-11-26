@@ -38,7 +38,13 @@ const getSetu = (keyword) => {
 			});
 	});
 };
-
+const errorMsgMap = new Map([
+	[-1, '内部错误，请向 i@loli.best 反馈'],
+	[401, 'APIKEY 不存在或被封禁'],
+	[403, '由于不规范的操作而被拒绝调用'],
+	[404, '找不到符合关键字的色图'],
+	[429, '达到调用额度限制']
+]);
 const handleSetu = async (gid, keyword) => {
 	log.info('收到色图请求from', gid, keyword);
 	if (!keyword) keyword = '';
@@ -47,17 +53,17 @@ const handleSetu = async (gid, keyword) => {
 		log.info('获取色图成功');
 		sendReply(
 			gid,
-			'[CQ:image,file=' + setu.url + ']' + setu.title + '\n' + setu.author
+			'[CQ:image,file=' +
+				setu.url +
+				']\n' +
+				setu.url +
+				'\n' +
+				setu.title +
+				'\n' +
+				setu.author
 		);
 	} else {
 		log.warn('获取色图失败', setu.code);
-		const errorMsgMap = new Map([
-			[-1, '内部错误，请向 i@loli.best 反馈'],
-			[401, 'APIKEY 不存在或被封禁'],
-			[403, '由于不规范的操作而被拒绝调用'],
-			[404, '找不到符合关键字的色图'],
-			[429, '达到调用额度限制']
-		]);
 		const errorMsg = errorMsgMap.get(setu.code);
 		sendReply(gid, errorMsg);
 	}
