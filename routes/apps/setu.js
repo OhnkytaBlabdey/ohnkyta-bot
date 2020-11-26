@@ -1,11 +1,12 @@
 'use-strict';
 const log = require('./logger');
 const fetch = require('node-fetch');
+const config = require('../../config.json');
 const sendReply = require('./Util').sendReply;
 
 const getSetu = (keyword) => {
 	return new Promise((setu) => {
-		fetch('https://api.lolicon.app/setu/?keyword=' + encodeURI(keyword))
+		fetch('https://api.lolicon.app/setu/?keyword=' + encodeURI(keyword) + '&apikey=' +config.setu_key)
 			.then((res) => {
 				try {
 					(async () => {
