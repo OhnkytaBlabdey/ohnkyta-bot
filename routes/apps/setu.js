@@ -22,7 +22,7 @@ const getSetu = (keyword) => {
 							setu(json);
 							return;
 						} else if (data && data[0] != undefined) {
-							data[0].quota=json.quota;
+							data[0]['quota']=json['quota'];
 							log.debug('色图获取结果' + data[0]);
 							setu(data[0]);
 							return;
