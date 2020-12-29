@@ -22,6 +22,7 @@ const getSetu = (keyword) => {
 							setu(json);
 							return;
 						} else if (data && data[0] != undefined) {
+							data[0].quota=json.quota;
 							log.debug('色图获取结果' + data[0]);
 							setu(data[0]);
 							return;
@@ -60,7 +61,8 @@ const handleSetu = async (gid, keyword) => {
 				'\n' +
 				setu.title +
 				'\n' +
-				setu.author
+				setu.author+
+				'\n剩余调用次数 ' + setu.quota
 		);
 	} else {
 		log.warn('获取色图失败', setu.code);
