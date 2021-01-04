@@ -84,6 +84,9 @@ monitor.chk = async (id, group_id) => {
 					group_id,
 					vlist[0]['author'] +
 						'更新了视频\n' +
+						+'b23.tv/av' +
+						lav +
+						'\n' +
 						vlist[0]['title'] +
 						'\n' +
 						'[CQ:image,file=https:' +
@@ -92,25 +95,25 @@ monitor.chk = async (id, group_id) => {
 						vlist[0]['description']
 				);
 				db.update(
-						{
-							gid: group_id,
-							mid: id
-						},
-						{
-							gid: group_id,
-							mid: id,
-							latestAid: lav
-						},
-						{},
-						(err, ct) => {
-							if (err) {
-								log.warn(err);
-							}
-							if (ct != 1) {
-								log.warn('替换了多个记录', ct);
-							}
+					{
+						gid: group_id,
+						mid: id
+					},
+					{
+						gid: group_id,
+						mid: id,
+						latestAid: lav
+					},
+					{},
+					(err, ct) => {
+						if (err) {
+							log.warn(err);
 						}
-					);
+						if (ct != 1) {
+							log.warn('替换了多个记录', ct);
+						}
+					}
+				);
 			}
 		}
 	);
@@ -151,7 +154,7 @@ monitor.addSub = async (id, group_id) => {
 			);
 
 			log.info('反馈订阅执行情况');
-			sendReply(group_id, id+'视频订阅成功');
+			sendReply(group_id, id + '视频订阅成功');
 		}
 	);
 };
