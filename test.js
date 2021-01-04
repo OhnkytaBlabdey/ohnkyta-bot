@@ -14,4 +14,13 @@ const log = require('./routes/apps/logger');
 // log.warn(process.cwd());
 
 const aaa = 123;
-log.info(`b23.tv/av${aaa}`);
+const vurl = 'https://www.bilibili.com/video/av'+aaa+' \n';
+log.info(vurl);
+log.info(
+	`更新了视频\n${vurl}` +
+		'title' +
+		'\n' +
+		'[CQ:image,file=https:' +
+		'//abaaba/234.jpg' +
+		']\n'
+);
