@@ -79,6 +79,7 @@ monitor.chk = async (id, group_id) => {
 			const vlist = await getVideoList(id);
 			const lav = vlist[0]['aid'];
 			if (lav && lav != lav_cache) {
+				log.info('latest av', lav);
 				//更新了视频
 				sendReply(
 					group_id,
