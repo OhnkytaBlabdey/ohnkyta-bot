@@ -34,8 +34,8 @@ const getVideoList = async (mid) => {
 						const json = await res.json();
 						const data = json.data;
 						log.debug(json);
-						log.info(data);
 						if (data && data.list && data.list.vlist) {
+							log.debug(data.list.vlist);
 							vlist(data.list.vlist);
 						} else {
 							log.warn(
@@ -85,6 +85,7 @@ monitor.chk = async (id, group_id) => {
 					vlist[0]['author'] +
 						'更新了视频\n' +
 						+'https://www.bilibili.com/video/av' + lav + '\n' +
+						+'b23.tv/' + vlist[0]['bvid'] + '\n' +
 						vlist[0]['title'] + '\n' +
 						'[CQ:image,file=https:' +
 						vlist[0]['pic'] +

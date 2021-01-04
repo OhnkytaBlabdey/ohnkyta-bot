@@ -14,6 +14,9 @@ Util.sendReply = async (gid, msg) => {
 				message: msg
 			}
 		})
+		.then(()=>{
+			log.debug('发送了消息', msg);
+		})
 		.catch((err) => {
 			if (err) log.warn(err);
 		});
