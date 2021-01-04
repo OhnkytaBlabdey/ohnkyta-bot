@@ -12,6 +12,6 @@ const log = require('./routes/apps/logger');
 // log.info({ a: 'b' }, 'bla', 'bla');
 // log.logger.info({ a: 'b' }, 'bla', 'bla');
 // log.warn(process.cwd());
-const vurl = 'b23.tv/av'+'170001';
-log.info(vurl);
-log.info(Number(123).toString());
+
+const aaa = 123;
+log.info(`b23.tv/av${aaa}`);
