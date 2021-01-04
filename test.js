@@ -1,4 +1,5 @@
 // const monitor = require('./routes/apps/liveMonitor');
+const { int } = require('random');
 const log = require('./routes/apps/logger');
 // const axios = require('axios');
 // const setu = require('./routes/apps/setu');
@@ -14,3 +15,4 @@ const log = require('./routes/apps/logger');
 // log.warn(process.cwd());
 const vurl = 'b23.tv/av'+'170001';
 log.info(vurl);
+log.info(Number(123).toString());

@@ -84,8 +84,8 @@ monitor.chk = async (id, group_id) => {
 					group_id,
 					vlist[0]['author'] +
 						'更新了视频\n' +
-						+('b23.tv/av' + lav) + '\n' +
-						+('https://www.bilibili.com/video/' + vlist[0]['bvid']) + '\n' +
+						+('b23.tv/av'+ Number(lav).toString()) + '\n' +
+						+('https://www.bilibili.com/video/'.concat(vlist[0]['bvid'])) + '\n' +
 						vlist[0]['title'] + '\n' +
 						'[CQ:image,file=https:' +
 						vlist[0]['pic'] +
