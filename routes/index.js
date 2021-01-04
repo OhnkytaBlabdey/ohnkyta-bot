@@ -11,6 +11,7 @@ const chatSync = require('./apps/chatSync');
 require('./apps/thunderNotify');
 const child_process = require('child_process');
 const liveMonitor = require('./apps/liveMonitor');
+const videoMonitor = require('./apps/videoMonitor');
 const axios = require('axios');
 const config = require('../config.json');
 
@@ -117,6 +118,26 @@ router.post('/', function (req, res) {
 				const idStr = params[1];
 				const id = parseInt(idStr);
 				liveMonitor.removeSub(id, group_id);
+			} else if (
+				RegExp(/^视频订阅\s\d+/).test(req.body.message) &&
+				req.body.user_id == 1263189143
+			) {
+				res.status(204);
+				const group_id = req.body.group_id;
+				const params = req.body.message.split(RegExp(/\s/), 2);
+				const idStr = params[1];
+				const id = parseInt(idStr);
+				videoMonitor.addSub(id, group_id);
+			} else if (
+				RegExp(/^取消视频订阅\s\d+/).test(req.body.message) &&
+				req.body.user_id == 1263189143
+			) {
+				res.status(204);
+				const group_id = req.body.group_id;
+				const params = req.body.message.split(RegExp(/\s/), 2);
+				const idStr = params[1];
+				const id = parseInt(idStr);
+				videoMonitor.removeSub(id, group_id);
 			} else if (RegExp(/^接龙\s/).test(req.body.message)) {
 				const card = req.body.message.replace('接龙 ', '');
 				log.info('接龙收到', { name: card });

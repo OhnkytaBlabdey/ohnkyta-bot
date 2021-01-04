@@ -32,7 +32,7 @@ const getRoomInfo = async (uid) => {
 					(async () => {
 						const json = await res.json();
 						const data = json.data;
-						log.info(json);
+						log.debug(json);
 						log.info(data);
 						if (data && data.title && data.cover) {
 							info(data);
@@ -223,7 +223,6 @@ monitor.addSub = async (id, name, group_id) => {
 					log.info('订阅添加', id);
 					log.info(doc);
 					monitor.chk(id, name, group_id);
-					//return true;
 				}
 			);
 
