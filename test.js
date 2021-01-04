@@ -17,6 +17,7 @@ const aaa = 123;
 const vurl = 'https://www.bilibili.com/video/av'+aaa+' \n';
 log.info(vurl);
 log.info(
+	'abcde'+
 	`更新了视频\n${vurl}` +
 		'title' +
 		'\n' +

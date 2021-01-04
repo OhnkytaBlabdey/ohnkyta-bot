@@ -80,11 +80,13 @@ monitor.chk = async (id, group_id) => {
 			const lav = vlist[0]['aid'];
 			if (lav && lav != lav_cache) {
 				log.info('latest av', lav);
+				const vurl = 'b23.tv/av'+lav+'\n';
+				log.info('video url', vurl);
 				//更新了视频
 				sendReply(
 					group_id,
 					vlist[0]['author'] +
-						`更新了视频\n${'b23.tv/av'+lav}` +
+						`更新了视频\n${vurl}` +
 						vlist[0]['title'] + '\n' +
 						'[CQ:image,file=https:' +
 						vlist[0]['pic'] +
