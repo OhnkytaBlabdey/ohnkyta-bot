@@ -130,7 +130,6 @@ monitor.addSub = async (id, group_id) => {
 			if (docs.length > 0) {
 				log.info('订阅重复添加', id);
 				sendReply(group_id, '用户ID为 “' + id + '” 的投稿视频已经订阅过了');
-				//return false;
 				return;
 			}
 			log.info('订阅未重复添加', id);
