@@ -19,14 +19,15 @@ let latestReq = new Map();
 const reqThreshold = 5;
 router.post('/', function (req, res) {
 	// TODO 限制频率，针对QQ号
-	const uid = req.body.user_id;
+	let uid = req.body.user_id;
 	if(!latestReq.get(uid)){
 		latestReq.set(uid, []);
 		let now = new Date().getTime();
 		latestReq.get(uid).push(now);
 		if(latestReq.get(uid).length>reqThreshold){
 			let prev = latestReq.get(uid).shift();
-			if((prev-now) < 60000){
+			log.debug(uid, '调用间隔', now-prev, 'ms');
+			if((now-prev) < 60000){
 				res.status(204);
 				res.end();
 				return;
