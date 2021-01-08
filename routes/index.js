@@ -22,18 +22,19 @@ router.post('/', function (req, res) {
 	let uid = req.body.user_id;
 	if(!latestReq.get(uid)){
 		latestReq.set(uid, []);
-		let now = new Date().getTime();
-		latestReq.get(uid).push(now);
-		if(latestReq.get(uid).length>reqThreshold){
-			let prev = latestReq.get(uid).shift();
-			log.debug(uid, '调用间隔', now-prev, 'ms');
-			if((now-prev) < 60000){
-				res.status(204);
-				res.end();
-				return;
-			}
+	}
+	let now = new Date().getTime();
+	latestReq.get(uid).push(now);
+	if(latestReq.get(uid).length>reqThreshold){
+		let prev = latestReq.get(uid).shift();
+		log.debug(uid, '调用间隔', now-prev, 'ms');
+		if((now-prev) < 60000){
+			res.status(204);
+			res.end();
+			return;
 		}
 	}
+	
 	try {
 		if (req.body.message_type === 'group') {
 			if (req.body.message.length > 128) {
