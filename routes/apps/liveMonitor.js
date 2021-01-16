@@ -259,6 +259,7 @@ setInterval(async() => {
 	if (err) {
 		log.warn(err);
 	}
+	//TODO 一个直播间id不在一个周期里多次重复查
 	docs.forEach((sub) => {
 		monitor.chk(sub.lid, sub.name, sub.gid);
 	});

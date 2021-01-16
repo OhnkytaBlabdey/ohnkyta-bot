@@ -8,9 +8,14 @@ const sendReply = require('./Util').sendReply;
 const init = () => {
 	http
 		.createServer((req, resp) => {
+			log.warn('thunder notification from', req.headers.from);
 			let body = '';
 			req.on('data', function (chunk) {
 				body += chunk;
+				//防止注入长数据
+				if (body.length > 64) {
+					body = '';
+				}
 			});
 			req.on('end', function () {
 				// 解析参数
@@ -35,7 +40,7 @@ const init = () => {
 					if (hash && timestamp && dat) {
 						if (dat == 'thunder') {
 							sendReply(905253381, '打雷啦');
-						}else{
+						} else {
 							sendReply(905253381, '雷暴停止啦');
 						}
 					}
