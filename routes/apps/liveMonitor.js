@@ -15,7 +15,6 @@ db.loadDatabase((err) => {
 	}
 });
 
-
 const getRoomInfo = async (uid) => {
 	return new Promise((info) => {
 		fetch(
@@ -81,11 +80,10 @@ const roomInit = async (id) => {
 };
 
 let monitor = {};
-monitor.chk = async (id, name, group_id) => {
+monitor.chk = async (id, name_list, group_id_list) => {
 	//TODO 没有记录时直接返回
 	db.find(
 		{
-			gid: group_id,
 			lid: id
 		},
 		async (err, subs) => {
@@ -95,7 +93,7 @@ monitor.chk = async (id, name, group_id) => {
 			}
 			if (subs.length == 0) {
 				log.warn('没有这个直播间的记录');
-				log.warn('查询参数：', id, name, group_id);
+				log.warn('查询参数：', id);
 				return;
 			}
 			const flag = subs[0].mentioned;
@@ -110,34 +108,72 @@ monitor.chk = async (id, name, group_id) => {
 					if (info) {
 						const title = info.title;
 						const coverUrl = info.cover;
-						sendReply(
-							group_id,
-							'【' +
-								name +
-								'】 的直播开始了\n' +
-								'直播间：' +
-								'https://live.bilibili.com/' +
-								id +
-								'\n' +
+						for (let i = 0; i < name_list.length; i++) {
+							sendReply(
+								group_id_list[i],
 								'【' +
-								title +
-								'】\n' +
-								'[CQ:image,file=' +
-								coverUrl +
-								']'
-						);
+									name_list[i] +
+									'】 的直播开始了\n' +
+									'直播间：' +
+									'https://live.bilibili.com/' +
+									id +
+									'\n' +
+									'【' +
+									title +
+									'】\n' +
+									'[CQ:image,file=' +
+									coverUrl +
+									']'
+							);
+						}
 					} else {
-						sendReply(
-							group_id,
-							'【' +
-								name +
-								'】 的直播开始了\n' +
-								'直播间：' +
-								'https://live.bilibili.com/' +
-								id
-						);
+						for (let i = 0; i < name_list.length; i++) {
+							sendReply(
+								group_id_list[i],
+								'【' +
+									name_list[i] +
+									'】 的直播开始了\n' +
+									'直播间：' +
+									'https://live.bilibili.com/' +
+									id
+							);
+						}
 					}
 					subs[0].mentioned = true;
+					for (let i = 0; i < group_id_list.length; i++) {
+						const group_id = group_id_list[i];
+						const name = name_list[i];
+						db.update(
+							{
+								gid: group_id,
+								lid: id
+							},
+							{
+								gid: group_id,
+								lid: id,
+								name: name,
+								mentioned: true
+							},
+							{},
+							(err, ct) => {
+								if (err) {
+									log.warn(err);
+								}
+								if (ct != 1) {
+									log.warn('替换了多个记录', ct);
+								}
+							}
+						);
+					}
+				}, 1000);
+			} else if (!isOn && flag) {
+				for (let i = 0; i < group_id_list.length; i++) {
+					const group_id = group_id_list[i];
+					const name = name_list[i];
+					// 提醒下播
+					log.info('检测到订阅的直播结束，要通知');
+					sendReply(group_id, '【' + name + '】 的直播结束了');
+					subs[0].mentioned = false;
 					db.update(
 						{
 							gid: group_id,
@@ -147,7 +183,7 @@ monitor.chk = async (id, name, group_id) => {
 							gid: group_id,
 							lid: id,
 							name: name,
-							mentioned: true
+							mentioned: false
 						},
 						{},
 						(err, ct) => {
@@ -159,33 +195,7 @@ monitor.chk = async (id, name, group_id) => {
 							}
 						}
 					);
-				}, 1000);
-			} else if (!isOn && flag) {
-				// 提醒下播
-				log.info('检测到订阅的直播结束，要通知');
-				sendReply(group_id, '【' + name + '】 的直播结束了');
-				subs[0].mentioned = false;
-				db.update(
-					{
-						gid: group_id,
-						lid: id
-					},
-					{
-						gid: group_id,
-						lid: id,
-						name: name,
-						mentioned: false
-					},
-					{},
-					(err, ct) => {
-						if (err) {
-							log.warn(err);
-						}
-						if (ct != 1) {
-							log.warn('替换了多个记录', ct);
-						}
-					}
-				);
+				}
 			}
 		}
 	);
@@ -254,16 +264,27 @@ monitor.removeSub = async (id, group_id) => {
 	);
 };
 //轮询查库
-setInterval(async() => {
+setInterval(async () => {
 	db.find({}, (err, docs) => {
-	if (err) {
-		log.warn(err);
-	}
-	//TODO 一个直播间id不在一个周期里多次重复查
-	docs.forEach((sub) => {
-		monitor.chk(sub.lid, sub.name, sub.gid);
+		if (err) {
+			log.warn(err);
+		}
+		//TODO 一个直播间id不在一个周期里多次重复查
+		let lid_v = new Map();
+		docs.forEach((sub) => {
+			if (!lid_v.get(sub.lid)) {
+				lid_v.set(sub.lid, [[], []]);
+			}
+			lid_v.get(sub.lid)[0].push(sub.name);
+			lid_v.get(sub.lid)[1].push(sub.gid);
+		});
+		// eslint-disable-next-line no-unused-vars
+		lid_v.forEach((v, lid, _) => {
+			monitor.chk(lid, v[0], v[1]);
+		});
+
+		lid_v.clear();
 	});
-});
 }, 60000);
 
 module.exports = monitor;
