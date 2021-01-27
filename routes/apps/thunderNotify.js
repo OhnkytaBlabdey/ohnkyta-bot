@@ -15,6 +15,7 @@ const init = () => {
 				//防止注入长数据
 				if (body.length > 128) {
 					body = '';
+					log.info('输入过长', chunk);
 				}
 			});
 			req.on('end', function () {
