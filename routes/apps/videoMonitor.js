@@ -33,9 +33,9 @@ const getVideoList = async (mid) => {
 					(async () => {
 						const json = await res.json();
 						const data = json.data;
-						log.debug(json);
+						// log.debug(json);
 						if (data && data.list && data.list.vlist) {
-							log.debug(data.list.vlist);
+							// log.debug(data.list.vlist);
 							vlist(data.list.vlist);
 						} else {
 							log.warn(

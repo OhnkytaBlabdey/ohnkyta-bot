@@ -8,16 +8,16 @@ const sendReply = require('./Util').sendReply;
 const init = () => {
 	http
 		.createServer((req, resp) => {
-			log.debug('thunder notification from', req.headers);
+			log.debug('thunder notification from', req.headers.from);
 			let body = '';
 			req.on('data', function (chunk) {
 				log.debug('thunder notification chunk', chunk);
 				body += chunk;
 				//防止注入长数据
-				if (body.length > 128) {
-					body = '';
-					log.info('输入过长', chunk);
-				}
+				// if (body.length > 128) {
+				// 	body = '';
+				// 	log.info('输入过长', chunk);
+				// }
 			});
 			req.on('end', function () {
 				// 解析参数
