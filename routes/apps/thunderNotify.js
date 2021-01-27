@@ -13,7 +13,7 @@ const init = () => {
 			req.on('data', function (chunk) {
 				body += chunk;
 				//防止注入长数据
-				if (body.length > 64) {
+				if (body.length > 128) {
 					body = '';
 				}
 			});
