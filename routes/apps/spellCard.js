@@ -12,9 +12,8 @@ let spellCardData = [
 ];
 const spellUrl = 'https://thwiki.cc/%E7%AC%A6%E5%8D%A1%E5%88%97%E8%A1%A8';
 
-let htmlContent = null;
 (async () => {
-	htmlContent = await Axios.get(spellUrl);
+	const htmlContent = await Axios.get(spellUrl);
 	log.debug(typeof htmlContent);
 	log.debug(htmlContent.status);
 	log.debug(typeof htmlContent.data);

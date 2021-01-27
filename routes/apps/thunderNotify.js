@@ -8,9 +8,10 @@ const sendReply = require('./Util').sendReply;
 const init = () => {
 	http
 		.createServer((req, resp) => {
-			log.warn('thunder notification from', req.headers.from);
+			log.debug('thunder notification from', req.headers);
 			let body = '';
 			req.on('data', function (chunk) {
+				log.debug('thunder notification chunk', chunk);
 				body += chunk;
 				//防止注入长数据
 				if (body.length > 128) {
