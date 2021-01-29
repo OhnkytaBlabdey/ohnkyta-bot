@@ -59,7 +59,7 @@ const getVideoList = async (mid) => {
 
 let monitor = {};
 monitor.chk = async (id, group_id) => {
-	//TODO 没有记录时直接返回
+	//没有记录时直接返回
 	db.find(
 		{
 			gid: group_id,
@@ -133,7 +133,6 @@ monitor.addSub = async (id, group_id) => {
 				return;
 			}
 			log.info('订阅未重复添加', id);
-			//TODO 写入订阅记录
 			db.insert(
 				{
 					mid: id,
@@ -157,7 +156,6 @@ monitor.addSub = async (id, group_id) => {
 	);
 };
 monitor.removeSub = async (id, group_id) => {
-	//TODO 删记录，停止轮询
 	log.info('取消视频订阅', id, group_id);
 	db.remove(
 		{
@@ -176,6 +174,7 @@ monitor.removeSub = async (id, group_id) => {
 };
 //轮询查库
 setInterval(async () => {
+	// TODO 字段改成订阅了该up的列表
 	db.find({}, (err, docs) => {
 		if (err) {
 			log.warn(err);

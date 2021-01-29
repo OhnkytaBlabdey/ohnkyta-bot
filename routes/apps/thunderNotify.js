@@ -42,9 +42,9 @@ const init = () => {
 					});
 					if (hash && timestamp && dat) {
 						if (dat == 'thunder') {
-							sendReply(905253381, '打雷啦');
+							sendReply(905253381, '【MC生存服】打雷啦');
 						} else {
-							sendReply(905253381, '雷暴停止啦');
+							sendReply(905253381, '【MC生存服】雷停啦');
 						}
 					}
 				} else {

@@ -213,11 +213,9 @@ monitor.addSub = async (id, name, group_id) => {
 			if (docs.length > 0) {
 				log.info('订阅重复添加', id);
 				sendReply(group_id, '房间号为 “' + id + '” 的直播已经订阅过了');
-				//return false;
 				return;
 			}
 			log.info('订阅未重复添加', id);
-			//TODO 写入订阅记录
 			db.insert(
 				{
 					lid: id,
@@ -246,7 +244,6 @@ monitor.isOnLiveAsync = async (id) => {
 };
 monitor.getInfo = getRoomInfo;
 monitor.removeSub = async (id, group_id) => {
-	//TODO 删记录，停止轮询
 	log.info('取消直播订阅', id, group_id);
 	db.remove(
 		{
@@ -269,7 +266,6 @@ setInterval(async () => {
 		if (err) {
 			log.warn(err);
 		}
-		//TODO 一个直播间id不在一个周期里多次重复查
 		let lid_v = new Map();
 		docs.forEach((sub) => {
 			if (!lid_v.get(sub.lid)) {
