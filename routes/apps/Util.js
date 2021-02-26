@@ -12,7 +12,7 @@ Util.sendReply = async (gid, msg) => {
 			params: {
 				access_token: config['auth'],
 				group_id: gid,
-				message: encodeURI(msg),
+				message: msg,
 			},
 		});
 	} catch (err) {

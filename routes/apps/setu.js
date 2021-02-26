@@ -44,7 +44,7 @@ const errorMsgMap = new Map([
 	[401, 'APIKEY 不存在或被封禁'],
 	[403, '由于不规范的操作而被拒绝调用'],
 	[404, '找不到符合关键字的色图'],
-	[429, '达到调用额度限制'],
+	[429, '达到调用额度限制']
 ]);
 const handleSetu = async (gid, keyword) => {
 	log.info('收到色图请求from', gid, keyword);

@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const http = require('http');
 const log = require('./logger');
 const sendReply = require('./Util').sendReply;
-const { time } = require('console');
+// const { time } = require('console');
 
 const init = () => {
 	http
