@@ -96,11 +96,10 @@ monitor.chk = async (id, name_list, group_id_list) => {
 				log.warn('查询参数：', id);
 				return;
 			}
-			const flag = subs[0].mentioned;
 			const room = await roomInit(id);
 			const isOn = room.live_status == 1;
 
-			if (isOn && !flag) {
+			if (isOn) {
 				setTimeout(async () => {
 					// 提醒开播
 					log.info('检测到订阅的直播' + id + '开始，要通知');
@@ -109,6 +108,9 @@ monitor.chk = async (id, name_list, group_id_list) => {
 						const title = info.title;
 						const coverUrl = info.cover;
 						for (let i = 0; i < name_list.length; i++) {
+							if (subs[i].onlive) {
+								continue;
+							}
 							sendReply(
 								group_id_list[i],
 								'【' +
@@ -128,17 +130,17 @@ monitor.chk = async (id, name_list, group_id_list) => {
 						}
 					} else {
 						for (let i = 0; i < name_list.length; i++) {
-							if (
-								!(await sendReply(
-									group_id_list[i],
-									'【' +
-										name_list[i] +
-										'】 的直播开始了\n' +
-										'直播间：' +
-										'https://live.bilibili.com/' +
-										id
-								))
-							) {
+							const sendResult = await sendReply(
+								group_id_list[i],
+								'【' +
+									name_list[i] +
+									'】 的直播开始了\n' +
+									'直播间：' +
+									'https://live.bilibili.com/' +
+									id
+							);
+							if (!sendResult) {
+								log.warn('通知失败', name_list[i]);
 								// 不标记为通知成功
 								name_list[i] = null;
 								group_id_list[i] = null;
@@ -147,7 +149,7 @@ monitor.chk = async (id, name_list, group_id_list) => {
 					}
 					for (let i = 0; i < group_id_list.length; i++) {
 						const group_id = group_id_list[i];
-						if(!group_id){
+						if (!group_id) {
 							continue;
 						}
 						const name = name_list[i];
@@ -160,7 +162,7 @@ monitor.chk = async (id, name_list, group_id_list) => {
 								gid: group_id,
 								lid: id,
 								name: name,
-								mentioned: true
+								onlive: true
 							},
 							{},
 							(err, ct) => {
@@ -174,12 +176,15 @@ monitor.chk = async (id, name_list, group_id_list) => {
 						);
 					}
 				}, 1000);
-			} else if (!isOn && flag) {
+			} else if (!isOn) {
+				// 提醒下播
+				log.info('检测到订阅的直播结束，要通知');
 				for (let i = 0; i < group_id_list.length; i++) {
+					if (!subs[i].onlive) {
+						continue;
+					}
 					const group_id = group_id_list[i];
 					const name = name_list[i];
-					// 提醒下播
-					log.info('检测到订阅的直播结束，要通知');
 					sendReply(group_id, '【' + name + '】 的直播结束了');
 					db.update(
 						{
@@ -190,7 +195,7 @@ monitor.chk = async (id, name_list, group_id_list) => {
 							gid: group_id,
 							lid: id,
 							name: name,
-							mentioned: false
+							onlive: false
 						},
 						{},
 						(err, ct) => {
@@ -228,7 +233,7 @@ monitor.addSub = async (id, name, group_id) => {
 					lid: id,
 					gid: group_id,
 					name: name,
-					mentioned: false
+					onlive: false
 				},
 				(err, doc) => {
 					if (err) {
@@ -269,7 +274,7 @@ monitor.removeSub = async (id, group_id) => {
 };
 //轮询查库
 setInterval(async () => {
-	db.find({mentioned: false}, (err, docs) => {
+	db.find({ onlive: false }, (err, docs) => {
 		if (err) {
 			log.warn(err);
 		}
