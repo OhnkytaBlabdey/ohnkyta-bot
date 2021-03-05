@@ -12,7 +12,7 @@ const logger = bunyan.createLogger({
 	name: 'bot',
 	streams: [
 		{
-			level: 'debug',
+			level: 'info',
 			stream: process.stdout
 		},
 		{
@@ -49,6 +49,5 @@ warpLogger.info = (obj, ...para) => {
 warpLogger.warn = (obj, ...para) => {
 	logger.warn(obj, para.join(' '), new Date().toLocaleString('zh-CN'));
 };
-
 
 module.exports = warpLogger;

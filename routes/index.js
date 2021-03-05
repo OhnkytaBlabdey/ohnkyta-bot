@@ -9,6 +9,7 @@ const drawSpell = require('./apps/spellCard');
 const setu = require('./apps/setu');
 const chatSync = require('./apps/chatSync');
 require('./apps/thunderNotify');
+require('./apps/ci/webhook');
 const child_process = require('child_process');
 const liveMonitor = require('./apps/liveMonitor');
 const videoMonitor = require('./apps/videoMonitor');
@@ -62,7 +63,8 @@ router.post('/', function (req, res) {
 					reply: '即将重启[CQ:face,id=178]'
 				});
 				const shell_cmd =
-					'cross-env NODE_ENV=production PORT=9961 TZ=\'Asia/Shanghai\' pm2 restart ohnkyta-bot --update-env';
+					// eslint-disable-next-line quotes
+					"cross-env NODE_ENV=production PORT=9961 TZ='Asia/Shanghai' pm2 restart ohnkyta-bot --update-env";
 				child_process.exec(shell_cmd, (err, stdout, stderr) => {
 					if (err) log.warn(err);
 					if (stdout) log.warn(stdout);
@@ -173,10 +175,7 @@ router.post('/', function (req, res) {
 								access_token: config['auth'],
 								group_id: group_id,
 								message:
-									'【' +
-									req.body.sender.nickname +
-									'的接龙进行中】 ' +
-									rep.desc
+									'【' + req.body.sender.nickname + '的接龙进行中】 ' + rep.desc
 							}
 						});
 					} else {
