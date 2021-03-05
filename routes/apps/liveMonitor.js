@@ -31,8 +31,7 @@ const getRoomInfo = async (uid) => {
 					(async () => {
 						const json = await res.json();
 						const data = json.data;
-						// log.debug(json);
-						log.info(data);
+						log.debug(json);
 						if (data && data.title && data.cover) {
 							info(data);
 						} else {
