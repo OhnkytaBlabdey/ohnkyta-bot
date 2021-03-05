@@ -1,24 +1,12 @@
 const http = require('http');
 const createHandler = require('github-webhook-handler');
 const spawn = require('child_process').spawn;
-const bunyan = require('bunyan');
 const config = require('../../../config.json');
 const handler = createHandler({
 	path: '/',
 	secret: config['ci_key']
 });
-const log = (global.log = bunyan.createLogger({
-	name: 'hook',
-	streams: [
-		{
-			level: 'info',
-			type: 'rotating-file',
-			path: './log/info/ci-infos.log',
-			period: '6h', // daily rotation : '1d'
-			count: 64 // keep copies
-		}
-	]
-}));
+const log = require('../logger');
 log.info(process.cwd());
 http
 	.createServer((req, res) => {
