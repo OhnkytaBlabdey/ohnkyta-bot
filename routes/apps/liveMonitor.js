@@ -101,8 +101,6 @@ monitor.chk = async (id, name_list, group_id_list) => {
 
 			if (isOn) {
 				setTimeout(async () => {
-					// 提醒开播
-					log.info('检测到订阅的直播' + id + '开始，要通知');
 					const info = await getRoomInfo(room.uid);
 					if (info) {
 						const title = info.title;
@@ -111,6 +109,8 @@ monitor.chk = async (id, name_list, group_id_list) => {
 							if (subs[i].onlive) {
 								continue;
 							}
+							// 提醒开播
+							log.info('检测到订阅的直播' + id + '开始，要通知');
 							sendReply(
 								group_id_list[i],
 								'【' +
@@ -177,12 +177,12 @@ monitor.chk = async (id, name_list, group_id_list) => {
 					}
 				}, 1000);
 			} else if (!isOn) {
-				// 提醒下播
-				log.info('检测到订阅的直播结束，要通知');
 				for (let i = 0; i < group_id_list.length; i++) {
 					if (!subs[i].onlive) {
 						continue;
 					}
+					// 提醒下播
+					log.info('检测到订阅的直播结束，要通知');
 					const group_id = group_id_list[i];
 					const name = name_list[i];
 					sendReply(group_id, '【' + name + '】 的直播结束了');
