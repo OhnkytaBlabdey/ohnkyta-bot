@@ -275,7 +275,7 @@ monitor.removeSub = async (id, group_id) => {
 //轮询查库
 setInterval(async () => {
 	let lid_v = new Map();
-	db.find({ onlive: false }, (err, docs) => {
+	db.find({}, (err, docs) => {
 		if (err) {
 			log.warn(err);
 		}
