@@ -274,11 +274,11 @@ monitor.removeSub = async (id, group_id) => {
 };
 //轮询查库
 setInterval(async () => {
+	let lid_v = new Map();
 	db.find({ onlive: false }, (err, docs) => {
 		if (err) {
 			log.warn(err);
 		}
-		let lid_v = new Map();
 		docs.forEach((sub) => {
 			if (!lid_v.get(sub.lid)) {
 				lid_v.set(sub.lid, [[], []]);
@@ -290,8 +290,8 @@ setInterval(async () => {
 		lid_v.forEach((v, lid, _) => {
 			monitor.chk(lid, v[0], v[1]);
 		});
-		lid_v.clear();
 	});
+	lid_v.clear();
 }, 60000);
 
 module.exports = monitor;

@@ -12,8 +12,8 @@ Util.sendReply = async (gid, msg) => {
 			params: {
 				access_token: config['auth'],
 				group_id: gid,
-				message: msg,
-			},
+				message: msg
+			}
 		});
 	} catch (err) {
 		if (err) {
