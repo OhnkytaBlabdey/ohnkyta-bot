@@ -5,7 +5,7 @@ const path = require('path');
 function MyStream() {}
 MyStream.prototype.write = function (rec) {
 	rec.level = bunyan.nameFromLevel[rec.level];
-	rec.time = new Date().toLocaleString();
+	rec.time = new Date().toLocaleString('zh-CN');
 };
 
 const logger = bunyan.createLogger({
