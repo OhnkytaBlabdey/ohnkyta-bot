@@ -52,19 +52,32 @@ const handleSetu = async (gid, keyword) => {
 	const setu = await getSetu(keyword);
 	if (setu.url) {
 		log.info('获取色图成功');
-		sendReply(
-			gid,
-			'[CQ:image,file=' +
+		if (gid != 953209980) {
+			sendReply(
+				gid,
+				'[CQ:image,file=' +
+					setu.url +
+					']\n' +
+					setu.url +
+					'\n标题：' +
+					setu.title +
+					'\n作者：' +
+					setu.author +
+					'\n剩余调用次数 ' +
+					setu.quota
+			);
+		} else {
+			sendReply(
+				gid,
 				setu.url +
-				']\n' +
-				setu.url +
-				'\n' +
-				setu.title +
-				'\n' +
-				setu.author +
-				'\n剩余调用次数 ' +
-				setu.quota
-		);
+					'\n标题：' +
+					setu.title +
+					'\n作者：' +
+					setu.author +
+					'\n剩余调用次数 ' +
+					setu.quota
+			);
+		}
 	} else {
 		log.warn('获取色图失败', setu.code);
 		const errorMsg = errorMsgMap.get(setu.code) || '内部错误';
