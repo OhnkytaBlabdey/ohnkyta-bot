@@ -48,6 +48,9 @@ const errorMsgMap = new Map([
 ]);
 const handleSetu = async (gid, keyword) => {
 	log.info('收到色图请求from', gid, keyword);
+	if (gid == 953209980) {
+		return;
+	}
 	if (!keyword) keyword = '';
 	const setu = await getSetu(keyword);
 	if (setu.url) {
