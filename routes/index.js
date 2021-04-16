@@ -70,32 +70,32 @@ router.post('/', function (req, res) {
 					if (stdout) log.warn(stdout);
 					if (stderr) log.warn(stderr);
 				});
-			} else if ('今日运势' === req.body.message) {
-				//TODO 支持分时间段和分用户
-				const yunshi = drawYunshi();
-				res.send({
-					auto_escape: false,
-					at_sender: false,
-					reply:
-						(req.body.sender.title || req.body.sender.nickname) +
-						'今天的运势是——\n' +
-						'【' +
-						yunshi.yunshi +
-						'】！\n' +
-						yunshi.desc
-				});
-			} else if ('/名言' == req.body.message) {
-				const mingyan = drawMingyan();
-				res.send({
-					auto_escape: false,
-					at_sender: false,
-					reply:
-						'"' +
-						mingyan.sentence +
-						'"' +
-						'\n\t————' +
-						(mingyan.author || '匿名')
-				});
+				// } else if ('今日运势' === req.body.message) {
+				// 	//TODO 支持分时间段和分用户
+				// 	const yunshi = drawYunshi();
+				// 	res.send({
+				// 		auto_escape: false,
+				// 		at_sender: false,
+				// 		reply:
+				// 			(req.body.sender.title || req.body.sender.nickname) +
+				// 			'今天的运势是——\n' +
+				// 			'【' +
+				// 			yunshi.yunshi +
+				// 			'】！\n' +
+				// 			yunshi.desc
+				// 	});
+				// } else if ('/名言' == req.body.message) {
+				// 	const mingyan = drawMingyan();
+				// 	res.send({
+				// 		auto_escape: false,
+				// 		at_sender: false,
+				// 		reply:
+				// 			'"' +
+				// 			mingyan.sentence +
+				// 			'"' +
+				// 			'\n\t————' +
+				// 			(mingyan.author || '匿名')
+				// 	});
 			} else if (RegExp(/^\/色图[\s\S+]?/).test(req.body.message)) {
 				// TODO 限制频率，针对QQ号
 				let uid = req.body.user_id;
