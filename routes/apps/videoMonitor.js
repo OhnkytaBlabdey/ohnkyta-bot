@@ -44,7 +44,7 @@ const getVideoList = async (mid) => {
 									mid +
 									'&ps=30&tid=0&pn=1&keyword=&order=pubdate&jsonp=jsonp'
 							);
-							log.warn('结果', data.list);
+							log.warn('结果', JSON.stringify(res));
 							vlist(null);
 						}
 					})();

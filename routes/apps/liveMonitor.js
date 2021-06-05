@@ -286,8 +286,8 @@ setInterval(async () => {
 			lid_v.get(sub.lid)[1].push(sub.gid);
 		});
 		// eslint-disable-next-line no-unused-vars
-		lid_v.forEach((v, lid, _) => {
-			monitor.chk(lid, v[0], v[1]);
+		lid_v.forEach(async (v, lid, _) => {
+			await monitor.chk(lid, v[0], v[1]);
 		});
 	});
 	lid_v.clear();
