@@ -19,8 +19,8 @@ const getVideoList = async (mid) => {
 	return new Promise((vlist) => {
 		fetch(
 			'https://api.bilibili.com/x/space/arc/search?mid=' +
-				mid +
-				'&ps=30&tid=0&pn=1&keyword=&order=pubdate&jsonp=jsonp',
+			mid +
+			'&ps=1',
 			{
 				credentials: 'include',
 				headers: {
@@ -39,10 +39,10 @@ const getVideoList = async (mid) => {
 							vlist(data.list.vlist);
 						} else {
 							log.warn(
-								'参数',
+								'获取视频列表失败',
 								'https://api.bilibili.com/x/space/arc/search?mid=' +
-									mid +
-									'&ps=30&tid=0&pn=1&keyword=&order=pubdate&jsonp=jsonp'
+								mid +
+								'&ps=1'
 							);
 							log.warn('结果', JSON.stringify(res));
 							vlist(null);
@@ -87,13 +87,13 @@ monitor.chk = async (id, group_id) => {
 				sendReply(
 					group_id,
 					vlist[0]['author'] +
-						`更新了视频\n${vurl}` +
-						vlist[0]['title'] +
-						'\n' +
-						'[CQ:image,file=https:' +
-						vlist[0]['pic'] +
-						']\n' +
-						vlist[0]['description']
+					`更新了视频\n${vurl}` +
+					vlist[0]['title'] +
+					'\n' +
+					'[CQ:image,file=https:' +
+					vlist[0]['pic'] +
+					']\n' +
+					vlist[0]['description']
 				);
 				db.update(
 					{
