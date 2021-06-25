@@ -49,7 +49,8 @@ const getVideoList = async (mid) => {
 						}
 					})();
 				} catch (err) {
-					log.warn(err);
+					if (err)
+						log.warn(err);
 				}
 			})
 			.catch((err) => {
@@ -90,7 +91,7 @@ monitor.chk = async (id, group_id) => {
 					`更新了视频\n${vurl}` +
 					vlist[0]['title'] +
 					'\n' +
-					'[CQ:image,file=https:' +
+					'[CQ:image,file=' +
 					vlist[0]['pic'] +
 					']\n' +
 					vlist[0]['description']
