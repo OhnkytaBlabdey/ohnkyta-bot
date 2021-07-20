@@ -1,3 +1,11 @@
+# 注意
+
+该版本已经弃用，在性能和安全等方面都存在不少问题，请移步新版本[sagume automata](https://github.com/OhnkytaBlabdey/SagumeAutomata)
+
+# Notice
+
+this version has been deprecated, please move to new version[sagume automata](https://github.com/OhnkytaBlabdey/SagumeAutomata)
+
 # ohnkyta-bot
 
 QQ 聊天机器人 练习用
